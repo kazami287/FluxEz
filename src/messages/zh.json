@@ -1,0 +1,72 @@
+{
+  "home": {
+    "hero": {
+      "title": "10秒生成令人惊奇的图像！",
+      "subtitle": "使用先进的人工智能技术，将您的想象力转化为令人惊叹的艺术作品",
+      "startButton": "立即开始",
+      "faqButton": "常见问题",
+      "imageCaption": "AI 生成的精美艺术"
+    },
+    "features": {
+      "title": "为什么选择我们？",
+      "speed": {
+        "title": "快速生成",
+        "description": "只需10秒，即可将您的创意转化为精美的图像"
+      },
+      "customization": {
+        "title": "高度定制",
+        "description": "完全控制图像的大小、风格和细节"
+      },
+      "security": {
+        "title": "安全可靠",
+        "description": "您的数据和创意受到完全保护"
+      }
+    },
+    "cta": {
+      "title": "准备好开始创作了吗？",
+      "subtitle": "加入我们的社区，探索无限创意可能",
+      "button": "免费注册"
+    }
+  },
+  "nav": {
+    "language": "语言",
+    "login": "登录",
+    "signOut": "登出"
+  },
+  "generate": {
+    "title": "AI 图像生成",
+    "description": "使用先进的 AI 技术，将您的创意转化为精美的图像",
+    "form": {
+      "prompt": {
+        "label": "提示词",
+        "placeholder": "描述您想要生成的图像..."
+      },
+      "seed": {
+        "label": "种子值（可选）",
+        "placeholder": "输入种子值以确保可重复性"
+      },
+      "width": {
+        "label": "宽度"
+      },
+      "height": {
+        "label": "高度"
+      },
+      "steps": {
+        "label": "步数"
+      },
+      "generateButton": {
+        "default": "生成图像",
+        "loading": "生成中..."
+      }
+    },
+    "preview": {
+      "title": "预览",
+      "placeholder": "生成的图像将显示在这里"
+    },
+    "error": {
+      "general": "生成图像时出错，请重试",
+      "invalidSize": "图像尺寸必须在 64x64 到 1024x1024 之间",
+      "invalidSteps": "步数必须在 1 到 100 之间"
+    }
+  }
+} 

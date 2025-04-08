@@ -1,0 +1,72 @@
+{
+  "home": {
+    "hero": {
+      "title": "Generate Amazing Images in 10 Seconds!",
+      "subtitle": "Transform your imagination into stunning artwork using advanced AI technology",
+      "startButton": "Get Started",
+      "faqButton": "FAQ",
+      "imageCaption": "AI Generated Artwork"
+    },
+    "features": {
+      "title": "Why Choose Us?",
+      "speed": {
+        "title": "Fast Generation",
+        "description": "Turn your ideas into beautiful images in just 10 seconds"
+      },
+      "customization": {
+        "title": "Highly Customizable",
+        "description": "Full control over image size, style, and details"
+      },
+      "security": {
+        "title": "Secure & Reliable",
+        "description": "Your data and creations are fully protected"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Creating?",
+      "subtitle": "Join our community and explore endless creative possibilities",
+      "button": "Sign Up Free"
+    }
+  },
+  "nav": {
+    "language": "Language",
+    "login": "Login",
+    "signOut": "Sign Out"
+  },
+  "generate": {
+    "title": "AI Image Generation",
+    "description": "Transform your ideas into stunning images using advanced AI technology",
+    "form": {
+      "prompt": {
+        "label": "Prompt",
+        "placeholder": "Describe the image you want to generate..."
+      },
+      "seed": {
+        "label": "Seed (optional)",
+        "placeholder": "Enter a seed number for reproducibility"
+      },
+      "width": {
+        "label": "Width"
+      },
+      "height": {
+        "label": "Height"
+      },
+      "steps": {
+        "label": "Steps"
+      },
+      "generateButton": {
+        "default": "Generate Image",
+        "loading": "Generating..."
+      }
+    },
+    "preview": {
+      "title": "Preview",
+      "placeholder": "Generated image will appear here"
+    },
+    "error": {
+      "general": "Error generating image, please try again",
+      "invalidSize": "Image size must be between 64x64 and 1024x1024",
+      "invalidSteps": "Steps must be between 1 and 100"
+    }
+  }
+} 
