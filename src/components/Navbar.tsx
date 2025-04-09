@@ -1,52 +1,70 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession, signOut } from 'next-auth/react'
-import { usePathname } from 'next/navigation'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 import LanguageSwitch from './LanguageSwitch'
+import { useParams, useRouter } from 'next/navigation'
 import { transferUrl } from '@/utils/locale'
 
 export default function Navbar() {
-  const { data: session } = useSession()
-  const pathname = usePathname()
   const t = useTranslations('nav')
-
-  const isActive = (path: string) => pathname === path
+  const router = useRouter()
+  const { locale } = useParams()
 
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="bg-white shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center h-16">
-          <Link href="/" className="text-2xl font-bold text-primary-500">
-            FluxEz
-          </Link>
-
-          <div className="flex items-center space-x-6">
-            {session ? (
-              <>
-                <button
-                  onClick={() => signOut()}
-                  className="text-gray-600 hover:text-primary-500 transition-colors"
-                >
-                  {t('signOut')}
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  href={transferUrl('login')}
-                  className={`text-gray-600 hover:text-primary-500 transition-colors ${
-                    isActive('/login') ? 'text-primary-500 font-medium' : ''
-                  }`}
-                >
-                  {t('login')}
-                </Link>
-              </>
-            )}
+        <div className="flex items-center justify-between h-16">
+          <div className="flex items-center space-x-8">
+            <Link 
+              href={transferUrl('/', locale)} 
+              className="flex items-center space-x-3 transform transition-all duration-300 hover:scale-110 origin-left"
+            >
+              <Image
+                src="/images/fluxEz-logo.png"
+                alt="FluxEz Logo"
+                width={48}
+                height={48}
+                className="rounded-full"
+              />
+              <span className="text-3xl font-bold bg-gradient-to-br from-violet-600 via-primary-500 to-amber-500 bg-clip-text text-transparent hover:from-fuchsia-500 hover:via-primary-400 hover:to-amber-400 transition-colors duration-300">
+                FluxEz
+              </span>
+            </Link>
+            <div className="hidden md:flex items-center space-x-8">
+              <button
+                onClick={() => {
+                  router.push(transferUrl('/', locale))
+                  setTimeout(() => {
+                    document.getElementById('faq-section')?.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    })
+                  }, 500)
+                }}
+                className="text-gray-700 hover:text-primary-500 transition-colors"
+              >
+                {t('faq')}
+              </button>
+              <button
+                onClick={() => {
+                  router.push(transferUrl('/', locale))
+                  setTimeout(() => {
+                    document.getElementById('community-showcase')?.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    })
+                  }, 500)
+                }}
+                className="text-gray-700 hover:text-primary-500 transition-colors"
+              >
+                {t('community')}
+              </button>
+            </div>
           </div>
-          {/* Language Switch */}
-          <div className="absolute top-4 right-4 z-50">
+
+          <div className="flex items-center">
             <LanguageSwitch />
           </div>
         </div>

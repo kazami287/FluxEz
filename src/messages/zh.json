@@ -1,8 +1,13 @@
 {
+  "site": {
+    "title": "FluxEz - 免费的文生图网站",
+    "description": "使用 AI 技术，几秒钟内生成令人惊叹的图像"
+  },
   "home": {
     "hero": {
-      "title": "10秒生成令人惊奇的图像！",
-      "subtitle": "使用先进的人工智能技术，将您的想象力转化为令人惊叹的艺术作品",
+      "titlePrefix": "10秒生成",
+      "titleHighlight": "令人惊奇的图像！",
+      "subtitle": "使用先进的Flux.1-schnell模型，将您的想象力转化为令人惊叹的艺术作品",
       "startButton": "立即开始",
       "faqButton": "常见问题",
       "imageCaption": "AI 生成的精美艺术"
@@ -20,26 +25,67 @@
       "security": {
         "title": "安全可靠",
         "description": "您的数据和创意受到完全保护"
+      },
+      "noLogin": {
+        "title": "无需登录",
+        "description": "立即体验 AI 图像生成，无需注册和登录"
       }
     },
     "cta": {
       "title": "准备好开始创作了吗？",
       "subtitle": "加入我们的社区，探索无限创意可能",
-      "button": "免费注册"
+      "button": "查看社区"
+    },
+    "faq": {
+      "title": "常见问题",
+      "questions": [
+        {
+          "q": "什么是FluxEz？",
+          "a": "FluxEz是一个完全免费、基于Flux.1[schnell]模型的在线文生图（text to image）服务网站，请在此自由地发挥你的创意！"
+        },
+        {
+          "q": "FluxEz是完全免费的吗？",
+          "a": "没错，我们提供完全免费的生图服务。"
+        },
+        {
+          "q": "FluxEz能创作什么样的图像？",
+          "a": "各种各样的风格，贴近现实的场景，艺术性的插画，动漫风格的画像等等。"
+        },
+        {
+          "q": "FluxEz生成的图像用于商业用途吗？",
+          "a": "当然，你拥有对生成图形的使用权，不论个人还是商业目的都完全没问题。"
+        },
+        {
+          "q": "什么是Flux.1[schnell]模型？",
+          "a": "Flux.1[schnell]是目前文生图领域最为出色且先进的模型之一，由黑森林实验室（Black Forest Lab）开源。"
+        },
+        {
+          "q": "我需要创建一个帐户并登录才能使用 FluxEz 吗？",
+          "a": "不，你可以直接使用我们的生图功能。"
+        }
+      ]
+    },
+    "community": {
+      "title": "社区",
+      "subtitle": "探索其他用户创作的精彩作品，并从中获取灵感",
+      "generateSame": "画同款"
     }
   },
   "nav": {
     "language": "语言",
     "login": "登录",
-    "signOut": "登出"
+    "signOut": "登出",
+    "home": "首页",
+    "faq": "常见问题",
+    "community": "社区"
   },
   "generate": {
     "title": "AI 图像生成",
-    "description": "使用先进的 AI 技术，将您的创意转化为精美的图像",
+    "description": "使用先进的 Flux.1-schnell模型，将您的创意转化为精美的图像",
     "form": {
       "prompt": {
         "label": "提示词",
-        "placeholder": "描述您想要生成的图像..."
+        "placeholder": "描述您想要生成的图像(推荐使用英语)..."
       },
       "seed": {
         "label": "种子值（可选）",
@@ -57,6 +103,10 @@
       "generateButton": {
         "default": "生成图像",
         "loading": "生成中..."
+      },
+      "advanced": {
+        "expand": "展开高级选项",
+        "collapse": "收起高级选项"
       }
     },
     "preview": {
@@ -68,5 +118,8 @@
       "invalidSize": "图像尺寸必须在 64x64 到 1024x1024 之间",
       "invalidSteps": "步数必须在 1 到 100 之间"
     }
+  },
+  "footer": {
+    "copyright": "FluxEz 版权所有。"
   }
-} 
+}

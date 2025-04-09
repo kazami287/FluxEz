@@ -1,8 +1,13 @@
 {
+  "site": {
+    "title": "FluxEz - Free AI Image Generator",
+    "description": "Generate amazing images in seconds using AI"
+  },
   "home": {
     "hero": {
-      "title": "Generate Amazing Images in 10 Seconds!",
-      "subtitle": "Transform your imagination into stunning artwork using advanced AI technology",
+      "titlePrefix": "Generate in 10 Seconds",
+      "titleHighlight": "Amazing Images!",
+      "subtitle": "Transform your imagination into stunning artwork using advanced Flux.1-schnell model",
       "startButton": "Get Started",
       "faqButton": "FAQ",
       "imageCaption": "AI Generated Artwork"
@@ -11,7 +16,7 @@
       "title": "Why Choose Us?",
       "speed": {
         "title": "Fast Generation",
-        "description": "Turn your ideas into beautiful images in just 10 seconds"
+        "description": "Transform your ideas into beautiful images in just 10 seconds"
       },
       "customization": {
         "title": "Highly Customizable",
@@ -20,18 +25,59 @@
       "security": {
         "title": "Secure & Reliable",
         "description": "Your data and creations are fully protected"
+      },
+      "noLogin": {
+        "title": "No Login Required",
+        "description": "Try AI image generation instantly, no registration needed"
       }
     },
     "cta": {
-      "title": "Ready to Start Creating?",
+      "title": "Ready to start creating?",
       "subtitle": "Join our community and explore endless creative possibilities",
-      "button": "Sign Up Free"
+      "button": "View Community Works"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "questions": [
+        {
+          "q": "What is FluxEz?",
+          "a": "FluxEz is a completely free online text-to-image service based on the Flux.1[schnell] model. Feel free to unleash your creativity here!"
+        },
+        {
+          "q": "Is FluxEz completely free?",
+          "a": "Yes, we provide our image generation service completely free of charge."
+        },
+        {
+          "q": "What types of images can FluxEz create?",
+          "a": "Various styles including realistic scenes, artistic illustrations, anime-style portraits, and more."
+        },
+        {
+          "q": "Can I use FluxEz generated images for commercial purposes?",
+          "a": "Absolutely! You own the rights to use the generated images for both personal and commercial purposes."
+        },
+        {
+          "q": "What is the Flux.1[schnell] model?",
+          "a": "Flux.1[schnell] is one of the most outstanding and advanced models in the text-to-image field, open-sourced by Black Forest Lab."
+        },
+        {
+          "q": "Do I need to create an account and log in to use FluxEz?",
+          "a": "No, you can use our image generation feature directly."
+        }
+      ]
+    },
+    "community": {
+      "title": "Community Showcase",
+      "subtitle": "Explore amazing works created by our community",
+      "generateSame": "Generate Similar"
     }
   },
   "nav": {
     "language": "Language",
     "login": "Login",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "home": "Home",
+    "faq": "FAQ",
+    "community": "Community"
   },
   "generate": {
     "title": "AI Image Generation",
@@ -57,6 +103,10 @@
       "generateButton": {
         "default": "Generate Image",
         "loading": "Generating..."
+      },
+      "advanced": {
+        "expand": "Show Advanced Options",
+        "collapse": "Hide Advanced Options"
       }
     },
     "preview": {
@@ -68,5 +118,8 @@
       "invalidSize": "Image size must be between 64x64 and 1024x1024",
       "invalidSteps": "Steps must be between 1 and 100"
     }
+  },
+  "footer": {
+    "copyright": "FluxEz All Rights Reserved."
   }
 } 

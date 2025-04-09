@@ -2,12 +2,21 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Providers from '@/components/Providers'
+import { getTranslations } from 'next-intl/server'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'AI Image Generator',
-  description: 'Generate amazing images in seconds using AI',
+export async function generateMetadata({
+  params: { locale }
+}: {
+  params: { locale: string }
+}): Promise<Metadata> {
+  const t = await getTranslations('site')
+
+  return {
+    title: t('title'),
+    description: t('description'),
+  }
 }
 
 export default function RootLayout({

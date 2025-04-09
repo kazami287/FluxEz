@@ -1,6 +1,10 @@
+import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+
+const inter = Inter({ subsets: ['latin'] })
 
 // 可以选择性地设置缓存时间
 async function getMessages(locale: string) {
@@ -24,10 +28,13 @@ export default async function LocaleLayout({
 
   return (
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Navbar />
-          <main className="min-h-screen">
-            {children}
-          </main>
+          <div className="min-h-screen flex flex-col">
+            <Navbar />
+            <main className="flex-grow">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </NextIntlClientProvider>
   )
 }
