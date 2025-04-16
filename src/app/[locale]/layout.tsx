@@ -1,10 +1,7 @@
-import { Inter } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { notFound } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-
-const inter = Inter({ subsets: ['latin'] })
 
 // 可以选择性地设置缓存时间
 async function getMessages(locale: string) {
@@ -21,9 +18,9 @@ export default async function LocaleLayout({
   params
 }: {
   children: React.ReactNode
-  params: { locale: string }
+  params: Promise<{ locale: string }> | undefined
 }) {
-  const { locale } = await Promise.resolve(params);
+  const locale = (await Promise.resolve(params))?.locale || 'zh';
   const messages = await getMessages(locale)
 
   return (

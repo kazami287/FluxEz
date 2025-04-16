@@ -1,55 +1,34 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from '@/lib/auth'
+import { generateImage } from '@/utils/comfyApi'
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
-    const session = await getServerSession(authOptions)
+    const body = await request.json()
+    const { prompt, width, height, steps, seed, batch_size } = body
 
-    if (!session) {
-      return NextResponse.json(
-        { message: 'Unauthorized' },
-        { status: 401 }
-      )
+    // 验证输入
+    if (width < 64 || width > 1024 || height < 64 || height > 1024) {
+      return NextResponse.json({ error: 'Invalid image dimensions' }, { status: 400 })
+    }
+    if (steps < 15 || steps > 30) {
+      return NextResponse.json({ error: 'Invalid steps value' }, { status: 400 })
     }
 
-    const { prompt, seed, width, height, steps } = await req.json()
+    // 调用 ComfyUI API
+    const imageUrl = await generateImage({
+      prompt,
+      width,
+      height,
+      steps,
+      seed: seed ? parseInt(seed) : undefined,
+      batch_size
+    }, process.env.COMFYUI_API_URL || '')
 
-    // Validate input
-    if (!prompt) {
-      return NextResponse.json(
-        { message: 'Prompt is required' },
-        { status: 400 }
-      )
-    }
-
-    // Call your image generation API
-    const response = await fetch(process.env.IMAGE_GENERATION_API_URL!, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.IMAGE_GENERATION_API_KEY}`,
-      },
-      body: JSON.stringify({
-        prompt,
-        seed,
-        width,
-        height,
-        steps,
-      }),
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to generate image')
-    }
-
-    const data = await response.json()
-
-    return NextResponse.json(data)
+    return NextResponse.json({ imageUrl })
   } catch (error) {
-    console.error('Generation error:', error)
+    console.error('Error generating image:', error)
     return NextResponse.json(
-      { message: 'Internal server error' },
+      { error: error instanceof Error ? error.message : 'Failed to generate image' },
       { status: 500 }
     )
   }

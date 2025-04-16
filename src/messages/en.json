@@ -1,16 +1,68 @@
 {
   "site": {
-    "title": "FluxEz - Free AI Image Generator",
-    "description": "Generate amazing images in seconds using AI"
+    "title": "FluxEz - Free Text to Image Website",
+    "description": "Generate stunning images in seconds using AI technology"
   },
   "home": {
     "hero": {
-      "titlePrefix": "Generate in 10 Seconds",
-      "titleHighlight": "Amazing Images!",
-      "subtitle": "Transform your imagination into stunning artwork using advanced Flux.1-schnell model",
+      "titlePrefix": "Unlock your creative",
+      "titleHighlight": "superpower in 10 seconds!",
+      "subtitle": "Transform your imagination into stunning artwork with our advanced Flux.1-schnell model, completely free",
+      "subtitle2": "Powered by distributed computing from 50 home computers with RTX 4090 GPUs across the country",
       "startButton": "Get Started",
       "faqButton": "FAQ",
-      "imageCaption": "AI Generated Artwork"
+      "imageCaption": "AI Generated Art"
+    },
+    "generate": {
+      "title": "AI Image Generation",
+      "description": "Transform your ideas into beautiful images using our advanced Flux.1-schnell model",
+      "form": {
+        "prompt": {
+          "label": "Prompt",
+          "placeholder": "Describe the image you want to generate (English recommended)..."
+        },
+        "randomPrompt": "Random Prompt",
+        "seed": {
+          "label": "Seed (optional)",
+          "placeholder": "Enter a seed value for reproducibility"
+        },
+        "width": {
+          "label": "Width",
+          "hint": "Image width (64-1024, multiples of 8)"
+        },
+        "height": {
+          "label": "Height",
+          "hint": "Image height (64-1024, multiples of 8)"
+        },
+        "steps": {
+          "label": "Steps",
+          "hint": "Range: 15-30, higher values mean more details but slower generation"
+        },
+        "batch_size": {
+          "label": "Batch Size",
+          "hint": "Number of images to generate (1-3)"
+        },
+        "advanced": {
+          "expand": "Show Advanced Options",
+          "collapse": "Hide Advanced Options"
+        },
+        "generateButton": {
+          "default": "Generate Image",
+          "loading": "Generating..."
+        },
+        "generating": "Generating...",
+        "finalizing": "Finalizing..."
+      },
+      "preview": {
+        "title": "Preview",
+        "placeholder": "Generated image will appear here",
+        "download": "Download Image"
+      },
+      "error": {
+        "general": "Error generating image, please try again",
+        "invalidSize": "Image size must be between 64x64 and 1024x1024",
+        "invalidSteps": "Steps must be between 1 and 100"
+      }
     },
     "features": {
       "title": "Why Choose Us?",
@@ -24,36 +76,36 @@
       },
       "security": {
         "title": "Secure & Reliable",
-        "description": "Your data and creations are fully protected"
+        "description": "Your data and creativity are fully protected"
       },
       "noLogin": {
         "title": "No Login Required",
-        "description": "Try AI image generation instantly, no registration needed"
+        "description": "Start experiencing AI image generation without registration"
       }
     },
     "cta": {
-      "title": "Ready to start creating?",
+      "title": "Ready to Start Creating?",
       "subtitle": "Join our community and explore endless creative possibilities",
-      "button": "View Community Works"
+      "button": "View Community"
     },
     "faq": {
       "title": "Frequently Asked Questions",
       "questions": [
         {
           "q": "What is FluxEz?",
-          "a": "FluxEz is a completely free online text-to-image service based on the Flux.1[schnell] model. Feel free to unleash your creativity here!"
+          "a": "FluxEz is a completely free, online text-to-image service based on the Flux.1[schnell] model. Feel free to unleash your creativity here!"
         },
         {
           "q": "Is FluxEz completely free?",
-          "a": "Yes, we provide our image generation service completely free of charge."
+          "a": "Yes, we provide completely free image generation services."
         },
         {
-          "q": "What types of images can FluxEz create?",
-          "a": "Various styles including realistic scenes, artistic illustrations, anime-style portraits, and more."
+          "q": "What kind of images can FluxEz create?",
+          "a": "Various styles, realistic scenes, artistic illustrations, anime-style portraits, and more."
         },
         {
-          "q": "Can I use FluxEz generated images for commercial purposes?",
-          "a": "Absolutely! You own the rights to use the generated images for both personal and commercial purposes."
+          "q": "Can I use FluxEz-generated images for commercial purposes?",
+          "a": "Yes, you have full rights to use the generated images for both personal and commercial purposes."
         },
         {
           "q": "What is the Flux.1[schnell] model?",
@@ -61,65 +113,23 @@
         },
         {
           "q": "Do I need to create an account and log in to use FluxEz?",
-          "a": "No, you can use our image generation feature directly."
+          "a": "No, you can directly use our image generation features."
         }
       ]
     },
     "community": {
-      "title": "Community Showcase",
-      "subtitle": "Explore amazing works created by our community",
-      "generateSame": "Generate Similar"
+      "title": "Community",
+      "subtitle": "Explore amazing works created by other users and get inspired",
+      "generateSame": "Generate Same Style"
     }
   },
   "nav": {
     "language": "Language",
-    "login": "Login",
-    "signOut": "Sign Out",
     "home": "Home",
     "faq": "FAQ",
     "community": "Community"
   },
-  "generate": {
-    "title": "AI Image Generation",
-    "description": "Transform your ideas into stunning images using advanced AI technology",
-    "form": {
-      "prompt": {
-        "label": "Prompt",
-        "placeholder": "Describe the image you want to generate..."
-      },
-      "seed": {
-        "label": "Seed (optional)",
-        "placeholder": "Enter a seed number for reproducibility"
-      },
-      "width": {
-        "label": "Width"
-      },
-      "height": {
-        "label": "Height"
-      },
-      "steps": {
-        "label": "Steps"
-      },
-      "generateButton": {
-        "default": "Generate Image",
-        "loading": "Generating..."
-      },
-      "advanced": {
-        "expand": "Show Advanced Options",
-        "collapse": "Hide Advanced Options"
-      }
-    },
-    "preview": {
-      "title": "Preview",
-      "placeholder": "Generated image will appear here"
-    },
-    "error": {
-      "general": "Error generating image, please try again",
-      "invalidSize": "Image size must be between 64x64 and 1024x1024",
-      "invalidSteps": "Steps must be between 1 and 100"
-    }
-  },
   "footer": {
-    "copyright": "FluxEz All Rights Reserved."
+    "copyright": "FluxEz. All rights reserved."
   }
 } 

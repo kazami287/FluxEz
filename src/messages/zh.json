@@ -5,12 +5,64 @@
   },
   "home": {
     "hero": {
-      "titlePrefix": "10秒生成",
-      "titleHighlight": "令人惊奇的图像！",
-      "subtitle": "使用先进的Flux.1-schnell模型，将您的想象力转化为令人惊叹的艺术作品",
+      "titlePrefix": "10秒解锁你的",
+      "titleHighlight": "创意超能力！",
+      "subtitle": "使用先进的Flux.1-schnell模型，免费将您的想象力转化为令人惊叹的艺术作品",
+      "subtitle2": "基于来自全国各地 50 台家用电脑的4090 显卡分布式算力",
       "startButton": "立即开始",
       "faqButton": "常见问题",
       "imageCaption": "AI 生成的精美艺术"
+    },
+    "generate": {
+      "title": "AI 图像生成",
+      "description": "使用先进的 Flux.1-schnell模型，将您的创意转化为精美的图像",
+      "form": {
+        "prompt": {
+          "label": "提示词",
+          "placeholder": "描述您想要生成的图像(推荐使用英语)..."
+        },
+        "randomPrompt": "随机提示词",
+        "seed": {
+          "label": "种子值（可选）",
+          "placeholder": "输入种子值以确保可重复性"
+        },
+        "width": {
+          "label": "宽度",
+          "hint": "图片宽度（64-1024，8的倍数）"
+        },
+        "height": {
+          "label": "高度",
+          "hint": "图片高度（64-1024，8的倍数）"
+        },
+        "steps": {
+          "label": "步数",
+          "hint": "范围：15-30，数值越高细节越丰富，但生成速度越慢"
+        },
+        "batch_size": {
+          "label": "生成数量",
+          "hint": "每次生成的图片数量（1-3）"
+        },
+        "advanced": {
+          "expand": "展开高级选项",
+          "collapse": "收起高级选项"
+        },
+        "generateButton": {
+          "default": "生成图片",
+          "loading": "生成中..."
+        },
+        "generating": "正在生成...",
+        "finalizing": "正在完成..."
+      },
+      "preview": {
+        "title": "预览",
+        "placeholder": "生成的图像将显示在这里",
+        "download": "下载图片"
+      },
+      "error": {
+        "general": "生成图像时出错，请重试",
+        "invalidSize": "图像尺寸必须在 64x64 到 1024x1024 之间",
+        "invalidSteps": "步数必须在 1 到 100 之间"
+      }
     },
     "features": {
       "title": "为什么选择我们？",
@@ -73,51 +125,9 @@
   },
   "nav": {
     "language": "语言",
-    "login": "登录",
-    "signOut": "登出",
     "home": "首页",
     "faq": "常见问题",
     "community": "社区"
-  },
-  "generate": {
-    "title": "AI 图像生成",
-    "description": "使用先进的 Flux.1-schnell模型，将您的创意转化为精美的图像",
-    "form": {
-      "prompt": {
-        "label": "提示词",
-        "placeholder": "描述您想要生成的图像(推荐使用英语)..."
-      },
-      "seed": {
-        "label": "种子值（可选）",
-        "placeholder": "输入种子值以确保可重复性"
-      },
-      "width": {
-        "label": "宽度"
-      },
-      "height": {
-        "label": "高度"
-      },
-      "steps": {
-        "label": "步数"
-      },
-      "generateButton": {
-        "default": "生成图像",
-        "loading": "生成中..."
-      },
-      "advanced": {
-        "expand": "展开高级选项",
-        "collapse": "收起高级选项"
-      }
-    },
-    "preview": {
-      "title": "预览",
-      "placeholder": "生成的图像将显示在这里"
-    },
-    "error": {
-      "general": "生成图像时出错，请重试",
-      "invalidSize": "图像尺寸必须在 64x64 到 1024x1024 之间",
-      "invalidSteps": "步数必须在 1 到 100 之间"
-    }
   },
   "footer": {
     "copyright": "FluxEz 版权所有。"

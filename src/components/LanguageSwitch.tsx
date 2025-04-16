@@ -2,11 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
-import { useTranslations } from 'next-intl'
 
 export default function LanguageSwitch() {
   const currentLocale = useLocale()
-  const t = useTranslations('nav')
   const router = useRouter()
 
   const switchLanguage = (locale: string) => {
@@ -18,11 +16,12 @@ export default function LanguageSwitch() {
   return (
     <div className="relative group z-50">
       <button className="flex items-center space-x-1 px-3 py-2 text-gray-700 hover:text-primary-500 transition-colors">
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2"/>
-          <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22" stroke="currentColor" strokeWidth="2"/>
-          <path d="M2 12H22" stroke="currentColor" strokeWidth="2"/>
-          <path d="M2 12C2 14.5013 4.73835 15.9228 8.29203 16 12C15.708 15.9228 19.2616 14.5013 22 12" stroke="currentColor" strokeWidth="2"/>
+        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" />
+          <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22" stroke="currentColor" strokeWidth="2" />
+          <path d="M2 12H22" stroke="currentColor" strokeWidth="2" />
+          <path d="M2 12C2 14.5013 4.73835 15.9228 8.29203 16C15.708 15.9228 19.2616 14.5013 22 12" stroke="currentColor" strokeWidth="2" />
         </svg>
         <span>{currentLocale === 'zh' ? '中文' : 'English'}</span>
         <svg
@@ -44,17 +43,15 @@ export default function LanguageSwitch() {
         <div className="py-1">
           <button
             onClick={() => switchLanguage('zh')}
-            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
-              currentLocale === 'zh' ? 'text-primary-500 font-medium' : 'text-gray-700'
-            }`}
+            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${currentLocale === 'zh' ? 'text-primary-500 font-medium' : 'text-gray-700'
+              }`}
           >
             中文
           </button>
           <button
             onClick={() => switchLanguage('en')}
-            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
-              currentLocale === 'en' ? 'text-primary-500 font-medium' : 'text-gray-700'
-            }`}
+            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${currentLocale === 'en' ? 'text-primary-500 font-medium' : 'text-gray-700'
+              }`}
           >
             English
           </button>

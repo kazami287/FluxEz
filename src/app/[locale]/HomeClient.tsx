@@ -1,12 +1,10 @@
 'use client'
 
-import Link from 'next/link'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
 import { useState, useEffect, useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { transferUrl } from '@/utils/locale'
-import { useParams, useRouter } from 'next/navigation'
+import GenerateForm from '@/components/GenerateForm'
+import community from './communityWorks'
 
 interface FAQItem {
   q: string;
@@ -14,12 +12,21 @@ interface FAQItem {
 }
 
 export default function HomeClient() {
-  const { data: session, status } = useSession()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
   const t = useTranslations('home')
-  const router = useRouter()
-  
+  const [prompt, setPrompt] = useState('');
+  const [width, setWidth] = useState(512);
+  const [height, setHeight] = useState(512);
+  const [steps, setSteps] = useState(20);
+  const [seed, setSeed] = useState<number | undefined>(undefined);
+  const [batch_size, setBatchSize] = useState(4);
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+  const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
+  const promptRef = useRef<HTMLTextAreaElement>(null);
+  const generateSectionRef = useRef<HTMLDivElement>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
   // 示例图片数组
   const images = [
     '/images/demo-1.jpg',
@@ -35,13 +42,13 @@ export default function HomeClient() {
     if (timerRef.current) {
       clearInterval(timerRef.current)
     }
-    
+
     const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
+      setCurrentImageIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       )
     }, 5000)
-    
+
     timerRef.current = timer
 
     return () => {
@@ -57,46 +64,60 @@ export default function HomeClient() {
       clearInterval(timerRef.current)
     }
     setCurrentImageIndex(index)
-    
+
     const timer = setInterval(() => {
-      setCurrentImageIndex((prevIndex) => 
+      setCurrentImageIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       )
     }, 5000)
-    
+
     timerRef.current = timer
   }
 
-  const getStartLink = () => {
-    if (status === 'loading') return '#'
-    return session ? '/generate' : '/login'
-  }
-
   // 模拟社区作品数据
-  const communityWorks = [
-    { id: 1, image: '/images/demo-1.jpg', prompt: 'best quality,a cute anime girl,sunshine,soft features,swing,a blue white-edged dress,solo,flower,blue eyes,blush,blue flower,long hair,barefoot,sitting,looking at viewer,blue rose,blue theme,rose,light particles,pale skin,blue background,off shoulder,full body,smile,collarbone,long hair,blue hair,vines,plants,' },
-    { id: 2, image: '/images/demo-2.jpg', prompt: 'The city, veiled under storm clouds, cracks open—a thread of radiance spills. On the sloping pavement, a girl with rose-tinted hair rises on her toes, her red-and-white sundress a fleeting bloom against the gloom, eyes fixed on the faraway light.' },
-    { id: 3, image: '/images/demo-3.jpg', prompt: 'Skyscraper windows— a thousand fractured sunsets, a thousand pink-haired girls. Her fingertips meet cold glass, but the reflections start blinking out of rhythm. with shafts of folded darkness.' },
-    { id: 4, image: '/images/demo-4.jpg', prompt: 'Golden light spills over the meadow. The maid, her hair the color of summer sky, cradles him in her lap— his dark strands mingling with the green beneath, a single stalk of grass between his teeth' },
-    { id: 5, image: '/images/demo-5.jpg', prompt: 'Skyscraper windows— a thousand fractured sunsets, a thousand pink-haired girls. Her fingertips meet cold glass, but the reflections start blinking out of rhythm. with shafts of folded darkness.' },
-    { id: 6, image: '/images/demo-6.jpg', prompt: 'Fluorescent lights strip them bare— commuters glide through turnstiles, their skeletons clattering like wind chimes. When she crouches down, the moon caught in her ribs flickers in time with her panic.' },
-    { id: 7, image: '/images/demo-7.png', prompt: 'Sunlight, grass, A girl lies in the meadow, smiling softly, a blade of grass between her lips.' },
-    { id: 8, image: '/images/demo-8.png', prompt: 'Sunlight, dappled shadows, a windchime’s lazy song,The girl dozes off on the porch swing,her straw hat tilted over her eyes—a melting popsicle stick abandoned on the floor,as the summer day hums her to sleep,' },
-    { id: 9, image: '/images/demo-9.png', prompt: 'Neon-Coke™ in the Cryo Wastes,The last carbonated relic of the old world,its bio-luminescent syrup throbbing against permafrost—a corporate logo half-scratched off,stll whispering "Drink Me" in binary,' },
-    { id: 10, image: '/images/demo-10.png', prompt: 'The rusted leviathan hovers, its belly gnawing on a shipwreck—rain sluicing off corroded brass plates, On the rooftop, the old fisherman casts his magnetic line,hauling in flickering spinal circuits to add to his bucket of glowing bolts' },
-    { id: 11, image: '/images/demo-11.png', prompt: 'The tree consumes its own rings by sunrise, Today it regurgitates a headstone—the caretaker’s name in crooked chalk letters,plus a child’s shoe,still warm,' },
-    { id: 12, image: '/images/demo-12.png', prompt: 'Books slip free from their shelves,drifting like slow-motion fireworks,The librarian’s ladder wobbles as she lunges—"A Brief History of the World" escapes again,shedding Sumerian dust and a 1943 bullet casing' },
-  ]
+  const communityWorks = community
 
-  const { locale } = useParams()
-  const handleGenerateSame = (prompt: string) => {
-    let originUrl = `generate?prompt=${encodeURIComponent(prompt)}`
-    console.log(originUrl)
-    router.push(transferUrl(originUrl, locale))
+  const handleGenerateSame = (promptText: string) => {
+    setPrompt(promptText);
+    if (promptRef.current) {
+      promptRef.current.focus();
+    }
+    if (generateSectionRef.current) {
+      generateSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleGenerate = async () => {
+    setIsGenerating(true)
+    setGeneratedImages([]) // 清空已生成的图片
+    const images: string[] = []
+    const requests = Array(batch_size).fill(null).map(() =>
+      fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          width,
+          height,
+          steps,
+          seed: seed ? parseInt(seed.toString()) : Math.floor(Math.random() * 10000000),
+          batch_size,
+        }),
+      }).then(async (res) => {
+        const data = await res.json()
+        images.push(data.imageUrl)
+        setGeneratedImages([...images]);
+      }).catch((err) => {
+        console.error("生成图片失败:", err);
+      })
+    );
+    // 等待所有请求完成（可选，如果你想在全部完成后执行某些操作）
+    await Promise.allSettled(requests);
+    setIsGenerating(false)
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-orange-50">
 
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden">
@@ -128,21 +149,21 @@ export default function HomeClient() {
             <p className="text-xl text-gray-600 mb-8">
               {t('hero.subtitle')}
             </p>
+            <p className="text-xl text-gray-600 mb-8">
+              {t('hero.subtitle2')}
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href={transferUrl(getStartLink(), locale)} 
-                className={`btn-primary px-8 py-3 text-lg rounded-full ${
-                  status === 'loading' ? 'opacity-50 cursor-not-allowed' : ''
-                }`}
+              <button
+                onClick={() => {
+                  document.getElementById('generate-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }}
+                className="btn-primary px-8 py-3 text-lg rounded-full"
               >
                 {t('hero.startButton')}
-              </Link>
-              <button 
+              </button>
+              <button
                 onClick={() => {
-                  document.getElementById('faq-section')?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  })
+                  document.getElementById('faq-section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
                 }}
                 className="btn-secondary px-8 py-3 text-lg rounded-full"
               >
@@ -157,9 +178,8 @@ export default function HomeClient() {
               {images.map((src, index) => (
                 <div
                   key={src}
-                  className={`absolute inset-0 transition-opacity duration-700 ${
-                    currentImageIndex === index ? 'opacity-100' : 'opacity-0'
-                  }`}
+                  className={`absolute inset-0 transition-opacity duration-700 ${currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+                    }`}
                 >
                   <Image
                     src={src}
@@ -186,28 +206,26 @@ export default function HomeClient() {
                     <button
                       key={index}
                       onClick={() => handleImageChange(index)}
-                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                        currentImageIndex === index
+                      className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentImageIndex === index
                           ? 'bg-primary-500 w-4'
                           : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
+                        }`}
                       aria-label={`切换到图片 ${index + 1}`}
                     />
                   ))}
                 </div>
               </div>
-              
+
               {/* 小屏幕只显示指示器 */}
               <div className="md:hidden flex gap-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
                 {images.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => handleImageChange(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentImageIndex === index
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${currentImageIndex === index
                         ? 'bg-primary-500 w-3'
                         : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
+                      }`}
                     aria-label={`切换到图片 ${index + 1}`}
                   />
                 ))}
@@ -233,6 +251,83 @@ export default function HomeClient() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Generate Section */}
+      <section id="generate-section" ref={generateSectionRef} className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-8">{t('generate.title')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-7 gap-8">
+            <div className="md:col-span-3">
+              <GenerateForm
+                prompt={prompt}
+                setPrompt={setPrompt}
+                width={width}
+                setWidth={setWidth}
+                height={height}
+                setHeight={setHeight}
+                steps={steps}
+                setSteps={setSteps}
+                seed={seed}
+                setSeed={setSeed}
+                batch_size={batch_size}
+                setBatchSize={setBatchSize}
+                status="authenticated"
+                onGenerate={handleGenerate}
+                isAdvancedOpen={isAdvancedOpen}
+                setIsAdvancedOpen={setIsAdvancedOpen}
+                promptRef={promptRef}
+                communityWorks={communityWorks}
+                isGenerating={isGenerating}
+              />
+            </div>
+            <div className="md:col-span-4 bg-white rounded-2xl shadow-lg p-6 backdrop-blur-sm bg-white/80">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-semibold text-gray-800">{t('generate.preview.title')}</h2>
+                {generatedImages && generatedImages.length > 0 && (
+                  <button
+                    onClick={() => {
+                      generatedImages.forEach((image, index) => {
+                        const link = document.createElement('a');
+                        link.href = image;
+                        link.download = `generated-image-${index + 1}.png`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      });
+                    }}
+                    className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                  >
+                    {t('generate.preview.download')}
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {Array.from({ length: batch_size }).map((_, index) => (
+                  <div key={index} className="aspect-square relative rounded-xl overflow-hidden bg-gray-100">
+                    {generatedImages[index] ? (
+                      <img
+                        src={generatedImages[index]}
+                        alt={`Generated ${index + 1}`}
+                        className="w-full h-full object-contain"
+                      />
+                    ) : isGenerating ? (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
+                      </div>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="text-gray-400">{t('generate.preview.placeholder')}</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -294,11 +389,11 @@ export default function HomeClient() {
           </p>
           <button
             onClick={() => {
-              document.getElementById('community-showcase')?.scrollIntoView({ 
+              document.getElementById('community-showcase')?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
               })
-            }} 
+            }}
             className="btn-primary px-8 py-3 text-lg inline-block"
           >
             {t('cta.button')}
