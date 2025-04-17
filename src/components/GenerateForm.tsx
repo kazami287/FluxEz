@@ -74,13 +74,6 @@ export default function GenerateForm({
     
 
     try {
-      // 验证输入
-      if (width < 64 || width > 1024 || height < 64 || height > 1024) {
-        throw new Error(t('form.error.invalidSize'))
-      }
-      if (steps < 15 || steps > 30) {
-        throw new Error(t('form.error.invalidSteps'))
-      }
 
       setProgress(100)
       onGenerate()

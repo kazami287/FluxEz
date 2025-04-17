@@ -55,8 +55,11 @@
       },
       "preview": {
         "title": "Preview",
-        "placeholder": "Generated image will appear here",
-        "download": "Download Image"
+        "download": "Download Image",
+        "placeholder": "Enter your prompt and click generate to start creating",
+        "generating": "Generating...",
+        "completed": "Completed",
+        "error": "Generation failed, please try again"
       },
       "error": {
         "general": "Error generating image, please try again",

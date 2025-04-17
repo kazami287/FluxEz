@@ -22,6 +22,12 @@ export default function HomeClient() {
   const [seed, setSeed] = useState<number | undefined>(undefined);
   const [batch_size, setBatchSize] = useState(4);
   const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+  const [imageStatuses, setImageStatuses] = useState<Array<{
+    status: 'pending' | 'success' | 'error';
+    message: string;
+    startTime?: number;
+    endTime?: number;
+  }>>([]);
   const [isAdvancedOpen, setIsAdvancedOpen] = useState(false);
   const promptRef = useRef<HTMLTextAreaElement>(null);
   const generateSectionRef = useRef<HTMLDivElement>(null);
@@ -89,10 +95,12 @@ export default function HomeClient() {
 
   const handleGenerate = async () => {
     setIsGenerating(true)
-    setGeneratedImages([]) // 清空已生成的图片
-    const images: string[] = []
-    const requests = Array(batch_size).fill(null).map(() =>
-      fetch('/api/generate', {
+    setGeneratedImages([])
+    setImageStatuses(Array(batch_size).fill({ status: 'pending', message: t('generate.preview.generating') }))
+    const images: string[] = Array(batch_size).fill('')
+    const requests = Array(batch_size).fill(null).map((_, index) => {
+      const startTime = Date.now();
+      return fetch('/api/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -100,17 +108,45 @@ export default function HomeClient() {
           width,
           height,
           steps,
-          seed: seed ? parseInt(seed.toString()) : Math.floor(Math.random() * 10000000),
+          seed: seed ? parseInt(seed.toString()) : Math.floor(Math.random() * 100000000),
           batch_size,
         }),
       }).then(async (res) => {
+        const endTime = Date.now();
+        const duration = ((endTime - startTime) / 1000).toFixed(1);
+        if (res.status !== 200) {
+          setImageStatuses(prev => {
+            images[index] = '#'
+            setGeneratedImages([...images]);
+            const newStatuses = [...prev];
+            newStatuses[index] = {
+              status: 'error',
+              message: t('generate.preview.error'),
+              startTime,
+              endTime: Date.now()
+            };
+            return newStatuses;
+          });
+          return
+        }
         const data = await res.json()
-        images.push(data.imageUrl)
+        images[index] = data.imageUrl
         setGeneratedImages([...images]);
+        setImageStatuses(prev => {
+          const newStatuses = [...prev];
+          newStatuses[index] = {
+            status: 'success',
+            message: `${t('generate.preview.completed')} (${duration}s)`,
+            startTime,
+            endTime
+          };
+          return newStatuses;
+        });
       }).catch((err) => {
         console.error("生成图片失败:", err);
+
       })
-    );
+    })
     // 等待所有请求完成（可选，如果你想在全部完成后执行某些操作）
     await Promise.allSettled(requests);
     setIsGenerating(false)
@@ -207,8 +243,8 @@ export default function HomeClient() {
                       key={index}
                       onClick={() => handleImageChange(index)}
                       className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentImageIndex === index
-                          ? 'bg-primary-500 w-4'
-                          : 'bg-gray-300 hover:bg-gray-400'
+                        ? 'bg-primary-500 w-4'
+                        : 'bg-gray-300 hover:bg-gray-400'
                         }`}
                       aria-label={`切换到图片 ${index + 1}`}
                     />
@@ -223,8 +259,8 @@ export default function HomeClient() {
                     key={index}
                     onClick={() => handleImageChange(index)}
                     className={`w-2 h-2 rounded-full transition-all duration-300 ${currentImageIndex === index
-                        ? 'bg-primary-500 w-3'
-                        : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-primary-500 w-3'
+                      : 'bg-gray-300 hover:bg-gray-400'
                       }`}
                     aria-label={`切换到图片 ${index + 1}`}
                   />
@@ -307,17 +343,28 @@ export default function HomeClient() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {Array.from({ length: batch_size }).map((_, index) => (
                   <div key={index} className="aspect-square relative rounded-xl overflow-hidden bg-gray-100">
-                    {generatedImages[index] ? (
+                    {generatedImages[index] && (
                       <img
                         src={generatedImages[index]}
                         alt={`Generated ${index + 1}`}
                         className="w-full h-full object-contain"
                       />
-                    ) : isGenerating ? (
+                    )}
+                    <div className={`absolute bottom-0 left-0 right-0 p-2 text-center text-sm ${
+                      imageStatuses[index]?.status === 'error' 
+                        ? 'bg-red-100 text-red-700' 
+                        : imageStatuses[index]?.status === 'success'
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-blue-100 text-blue-700'
+                    }`}>
+                      {imageStatuses[index]?.message}
+                    </div>
+                    {isGenerating && !imageStatuses[index]?.status && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary-500 border-t-transparent"></div>
                       </div>
-                    ) : (
+                    )}
+                    {!isGenerating && !imageStatuses[index]?.status && !generatedImages[index] && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center">
                           <div className="text-gray-400">{t('generate.preview.placeholder')}</div>
@@ -421,8 +468,104 @@ export default function HomeClient() {
         </div>
       </section>
 
+      {/* 共绩算力 */}
+      <section
+          id="gongji"
+          className="py-24 px-8 bg-gradient-to-br from-violet-50 via-primary-50 to-amber-50"
+        >
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-bold mb-6 text-center tracking-tight text-gray-800">
+              共绩算力支持
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center leading-relaxed">
+              本项目由共绩算力提供强大的分布式计算支持，让模型推理更高效、更经济。
+            </p>
+
+            <div className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-8 shadow-xl max-w-4xl mx-auto">
+              <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
+                <div className="w-full md:w-1/3 flex justify-center">
+                  <div className="w-40 h-40 relative flex items-center justify-center">
+                    <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full animate-pulse"></div>
+                    <a
+                      href="https://gongjiyun.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative z-10 text-center"
+                    >
+                      <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
+                        共绩
+                      </div>
+                      <div className="text-center text-gray-500 text-sm">
+                        gongjiyun.com
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div className="w-full md:w-2/3">
+                  <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
+                    共绩算力优势
+                  </h3>
+                  <ul className="space-y-4 text-gray-600">
+                    <li className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
+                        <span className="text-amber-500">•</span>
+                      </span>
+                      <span>分布式算力网络，整合闲置计算资源</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center">
+                        <span className="text-orange-500">•</span>
+                      </span>
+                      <span>高性价比，降低 AI 应用部署成本</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
+                        <span className="text-amber-500">•</span>
+                      </span>
+                      <span>绿色环保，提高资源利用效率</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="pt-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="bg-white/90 border border-amber-200 p-5 rounded-lg">
+                    <div className="text-3xl font-bold text-amber-600 mb-2">
+                      50+
+                    </div>
+                    <div className="text-gray-600">提供本项目节点</div>
+                  </div>
+                  <div className="bg-white/90 border border-orange-200 p-5 rounded-lg">
+                    <div className="text-3xl font-bold text-orange-600 mb-2">
+                      100K+
+                    </div>
+                    <div className="text-gray-600">分布式算力设备</div>
+                  </div>
+                  <div className="bg-white/90 border border-amber-200 p-5 rounded-lg">
+                    <div className="text-3xl font-bold text-amber-600 mb-2">
+                      99.9%
+                    </div>
+                    <div className="text-gray-600">服务可用性</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 text-center">
+                <a
+                  href="https://gongjiyun.com"
+                  target="_blank"
+                  className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-md text-white text-center hover:translate-y-[-2px] transition-all duration-200 shadow-lg shadow-amber-900/20"
+                >
+                  部署你的服务
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
       {/* Community Showcase Section */}
-      <section id="community-showcase" className="py-16 bg-gradient-to-br from-primary-50 to-primary-100">
+      <section id="community-showcase" className="py-16 bg-white/95">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">{t('community.title')}</h2>

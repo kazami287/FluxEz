@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
+import { locales } from '@/config'
 
 export default function LanguageSwitch() {
   const currentLocale = useLocale()
@@ -11,6 +12,19 @@ export default function LanguageSwitch() {
     const currentPath = window.location.pathname
     const newPath = currentPath.replace(`/${currentLocale}`, `/${locale}`)
     router.push(newPath)
+  }
+
+  const getLanguageName = (locale: string) => {
+    switch (locale) {
+      case 'en':
+        return 'English'
+      case 'zh':
+        return '简体中文'
+      case 'zh-TW':
+        return '繁體中文'
+      default:
+        return locale
+    }
   }
 
   return (
@@ -23,7 +37,7 @@ export default function LanguageSwitch() {
           <path d="M2 12H22" stroke="currentColor" strokeWidth="2" />
           <path d="M2 12C2 14.5013 4.73835 15.9228 8.29203 16C15.708 15.9228 19.2616 14.5013 22 12" stroke="currentColor" strokeWidth="2" />
         </svg>
-        <span>{currentLocale === 'zh' ? '中文' : 'English'}</span>
+        <span>{getLanguageName(currentLocale)}</span>
         <svg
           className="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"
           fill="none"
@@ -39,22 +53,19 @@ export default function LanguageSwitch() {
         </svg>
       </button>
 
-      <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-xl border border-gray-100 invisible group-hover:visible transition-all duration-200 hover:visible">
+      <div className="absolute right-0 mt-1 w-40 bg-white rounded-lg shadow-xl border border-gray-100 invisible group-hover:visible transition-all duration-200 hover:visible">
         <div className="py-1">
-          <button
-            onClick={() => switchLanguage('zh')}
-            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${currentLocale === 'zh' ? 'text-primary-500 font-medium' : 'text-gray-700'
+          {locales.map((locale) => (
+            <button
+              key={locale}
+              onClick={() => switchLanguage(locale)}
+              className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${
+                currentLocale === locale ? 'text-primary-500 font-medium' : 'text-gray-700'
               }`}
-          >
-            中文
-          </button>
-          <button
-            onClick={() => switchLanguage('en')}
-            className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 ${currentLocale === 'en' ? 'text-primary-500 font-medium' : 'text-gray-700'
-              }`}
-          >
-            English
-          </button>
+            >
+              {getLanguageName(locale)}
+            </button>
+          ))}
         </div>
       </div>
     </div>

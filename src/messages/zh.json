@@ -56,7 +56,10 @@
       "preview": {
         "title": "预览",
         "placeholder": "生成的图像将显示在这里",
-        "download": "下载图片"
+        "download": "下载图片",
+        "generating": "生成中...",
+        "completed": "生成完成",
+        "error": "生成失败，请重试"
       },
       "error": {
         "general": "生成图像时出错，请重试",
