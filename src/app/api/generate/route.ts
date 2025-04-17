@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { generateImage } from '@/utils/comfyApi'
 
+const COMFYUI_API_URL = "https://lastapi-light1-last.550w.run"
+
 export async function POST(request: Request) {
   try {
     const body = await request.json()
@@ -22,7 +24,7 @@ export async function POST(request: Request) {
       steps,
       seed: seed ? parseInt(seed) : undefined,
       batch_size
-    }, process.env.COMFYUI_API_URL || '')
+    }, COMFYUI_API_URL || '')
 
     return NextResponse.json({ imageUrl })
   } catch (error) {
