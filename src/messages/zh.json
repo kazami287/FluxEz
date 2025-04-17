@@ -7,7 +7,7 @@
     "hero": {
       "titlePrefix": "10秒解锁你的",
       "titleHighlight": "创意超能力！",
-      "subtitle": "使用先进的Flux.1-schnell模型，免费将您的想象力转化为令人惊叹的艺术作品",
+      "subtitle": "使用先进的Flux.1-dev模型，免费将您的想象力转化为令人惊叹的艺术作品",
       "subtitle2": "基于来自全国各地 50 台家用电脑的4090 显卡分布式算力",
       "startButton": "立即开始",
       "faqButton": "常见问题",
@@ -15,7 +15,7 @@
     },
     "generate": {
       "title": "AI 图像生成",
-      "description": "使用先进的 Flux.1-schnell模型，将您的创意转化为精美的图像",
+      "description": "使用先进的 Flux.1-dev模型，将您的创意转化为精美的图像",
       "form": {
         "prompt": {
           "label": "提示词",
@@ -96,7 +96,7 @@
       "questions": [
         {
           "q": "什么是FluxEz？",
-          "a": "FluxEz是一个完全免费、基于Flux.1[schnell]模型的在线文生图（text to image）服务网站，请在此自由地发挥你的创意！"
+          "a": "FluxEz是一个完全免费、基于Flux.1[dev]模型的在线文生图（text to image）服务网站，请在此自由地发挥你的创意！"
         },
         {
           "q": "FluxEz是完全免费的吗？",
@@ -111,8 +111,8 @@
           "a": "当然，你拥有对生成图形的使用权，不论个人还是商业目的都完全没问题。"
         },
         {
-          "q": "什么是Flux.1[schnell]模型？",
-          "a": "Flux.1[schnell]是目前文生图领域最为出色且先进的模型之一，由黑森林实验室（Black Forest Lab）开源。"
+          "q": "什么是Flux.1[dev]模型？",
+          "a": "Flux.1[dev]是目前文生图领域最为出色且先进的模型之一，由黑森林实验室（Black Forest Lab）开源。"
         },
         {
           "q": "我需要创建一个帐户并登录才能使用 FluxEz 吗？",

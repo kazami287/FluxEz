@@ -7,7 +7,7 @@
     "hero": {
       "titlePrefix": "Unlock your creative",
       "titleHighlight": "superpower in 10 seconds!",
-      "subtitle": "Transform your imagination into stunning artwork with our advanced Flux.1-schnell model, completely free",
+      "subtitle": "Transform your imagination into stunning artwork with our advanced Flux.1-dev model, completely free",
       "subtitle2": "Powered by distributed computing from 50 home computers with RTX 4090 GPUs across the country",
       "startButton": "Get Started",
       "faqButton": "FAQ",
@@ -15,7 +15,7 @@
     },
     "generate": {
       "title": "AI Image Generation",
-      "description": "Transform your ideas into beautiful images using our advanced Flux.1-schnell model",
+      "description": "Transform your ideas into beautiful images using our advanced Flux.1-dev model",
       "form": {
         "prompt": {
           "label": "Prompt",
@@ -96,7 +96,7 @@
       "questions": [
         {
           "q": "What is FluxEz?",
-          "a": "FluxEz is a completely free, online text-to-image service based on the Flux.1[schnell] model. Feel free to unleash your creativity here!"
+          "a": "FluxEz is a completely free, online text-to-image service based on the Flux.1[dev] model. Feel free to unleash your creativity here!"
         },
         {
           "q": "Is FluxEz completely free?",
@@ -111,8 +111,8 @@
           "a": "Yes, you have full rights to use the generated images for both personal and commercial purposes."
         },
         {
-          "q": "What is the Flux.1[schnell] model?",
-          "a": "Flux.1[schnell] is one of the most outstanding and advanced models in the text-to-image field, open-sourced by Black Forest Lab."
+          "q": "What is the Flux.1[dev] model?",
+          "a": "Flux.1[dev] is one of the most outstanding and advanced models in the text-to-image field, open-sourced by Black Forest Lab."
         },
         {
           "q": "Do I need to create an account and log in to use FluxEz?",
