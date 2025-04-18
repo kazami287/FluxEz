@@ -32,6 +32,7 @@ export default function HomeClient() {
   const promptRef = useRef<HTMLTextAreaElement>(null);
   const generateSectionRef = useRef<HTMLDivElement>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   // 示例图片数组
   const images = [
@@ -154,6 +155,33 @@ export default function HomeClient() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-orange-50">
+
+      {/* 图片放大模态框 */}
+      {zoomedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex flex-col items-center justify-center p-4"
+          onClick={() => setZoomedImage(null)}
+        >
+          <div className="w-full max-w-4xl flex flex-col items-center">
+            <button
+              className="mb-4 text-white hover:text-gray-300 transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setZoomedImage(null);
+              }}
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <img
+              src={zoomedImage}
+              alt="Zoomed preview"
+              className="w-full h-auto rounded-lg"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden">
@@ -351,7 +379,8 @@ export default function HomeClient() {
                       <img
                         src={generatedImages[index]}
                         alt={`Generated ${index + 1}`}
-                        className="w-full h-full object-contain"
+                        className="w-full h-full object-contain cursor-zoom-in hover:opacity-90 transition-opacity"
+                        onClick={() => setZoomedImage(generatedImages[index])}
                       />
                     )}
                     <div className={`absolute bottom-0 left-0 right-0 p-2 text-center text-sm ${imageStatuses[index]?.status === 'error'
@@ -484,6 +513,43 @@ export default function HomeClient() {
               >
                 <h3 className="text-xl font-semibold mb-4">Q{index + 1}: {qa.q}</h3>
                 <p className="text-gray-600 pl-4 border-l-2 border-primary-500">{qa.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Community Showcase Section */}
+      <section id="community-showcase" className="py-16 bg-white/95">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">{t('community.title')}</h2>
+            <p className="text-xl text-gray-600">{t('community.subtitle')}</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {communityWorks.map((work) => (
+              <div key={work.id} className="relative group">
+                <div className="aspect-square rounded-xl overflow-hidden">
+                  <Image
+                    src={work.image}
+                    alt={`Community work ${work.id}`}
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
+                  <div className="absolute inset-0 flex flex-col justify-end p-4">
+                    <p className="text-white text-sm mb-4 line-clamp-3">{work.prompt}</p>
+                    <button
+                      onClick={() => handleGenerateSame(work.prompt)}
+                      className="w-full py-2 px-4 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors"
+                    >
+                      {t('community.generateSame')}
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -635,43 +701,6 @@ export default function HomeClient() {
                 {t('gongji.button')}
               </a>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Community Showcase Section */}
-      <section id="community-showcase" className="py-16 bg-white/95">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t('community.title')}</h2>
-            <p className="text-xl text-gray-600">{t('community.subtitle')}</p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {communityWorks.map((work) => (
-              <div key={work.id} className="relative group">
-                <div className="aspect-square rounded-xl overflow-hidden">
-                  <Image
-                    src={work.image}
-                    alt={`Community work ${work.id}`}
-                    width={500}
-                    height={500}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl">
-                  <div className="absolute inset-0 flex flex-col justify-end p-4">
-                    <p className="text-white text-sm mb-4 line-clamp-3">{work.prompt}</p>
-                    <button
-                      onClick={() => handleGenerateSame(work.prompt)}
-                      className="w-full py-2 px-4 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors"
-                    >
-                      {t('community.generateSame')}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
