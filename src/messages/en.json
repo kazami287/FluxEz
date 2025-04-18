@@ -124,6 +124,38 @@
       "title": "Community",
       "subtitle": "Explore amazing works created by other users and get inspired",
       "generateSame": "Generate Same Style"
+    },
+    "suanleme": {
+      "title": "This project is powered by the following platforms",
+      "gongji": "Gongji Computing",
+      "suanleme": "Suanleme",
+      "advantages": {
+        "title": "Shared Computing Advantages",
+        "items": [
+          "Utilize idle computing power to create value",
+          "Contribute to the community and help more people use AI",
+          "Earn rewards and enjoy priority access and other privileges"
+        ],
+        "button": "Learn how to share computing power"
+      }
+    },
+    "gongji": {
+      "title": "Powered by Gongji Computing",
+      "description": "This project is supported by Gongji Computing's powerful distributed computing network, making model inference more efficient and economical.",
+      "advantages": {
+        "title": "Gongji Computing Advantages",
+        "items": [
+          "Distributed computing network that integrates idle computing resources",
+          "Cost-effective, reducing AI application deployment costs",
+          "Environmentally friendly, improving resource utilization efficiency"
+        ]
+      },
+      "stats": {
+        "nodes": "Project Nodes",
+        "devices": "Distributed Computing Devices",
+        "availability": "Service Availability"
+      },
+      "button": "Deploy Your Service"
     }
   },
   "nav": {

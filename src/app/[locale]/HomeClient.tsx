@@ -471,7 +471,7 @@ export default function HomeClient() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="text-center mb-16">
             <p className="text-gray-600 text-sm mb-4">
-              本项目由以下平台提供庞大算力支持
+              {t('suanleme.title')}
             </p>
             <div className="flex justify-center items-center gap-8">
               <a
@@ -482,7 +482,7 @@ export default function HomeClient() {
               >
                 <img
                   src="https://gongjiyun.com/logo.png"
-                  alt="共绩算力"
+                  alt={t('suanleme.gongji')}
                   className="h-10"
                 />
               </a>
@@ -494,7 +494,7 @@ export default function HomeClient() {
               >
                 <img
                   src="https://suanleme.cn/logo.svg"
-                  alt="算了么"
+                  alt={t('suanleme.suanleme')}
                   className="h-10"
                 />
               </a>
@@ -504,34 +504,28 @@ export default function HomeClient() {
           <div className="w-full flex flex-col md:flex-row items-center justify-center gap-16">
             <div className="w-full md:w-2/5 max-w-xl">
               <div className="bg-white/80 backdrop-blur-sm border border-amber-200 rounded-lg p-10 shadow-xl">
-                <h3 className="text-2xl font-semibold mb-6 text-gray-800">共享算力优势</h3>
+                <h3 className="text-2xl font-semibold mb-6 text-gray-800">{t('suanleme.advantages.title')}</h3>
                 <ul className="space-y-5 text-gray-600">
-                  <li className="flex items-center gap-3">
-                    <span className="text-amber-500">•</span>
-                    闲置算力利用，让硬件创造价值
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-amber-500">•</span>
-                    贡献社区，帮助更多人使用 AI
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-amber-500">•</span>
-                    获得奖励，享受优先级和其他特权
-                  </li>
+                  {t.raw('suanleme.advantages.items').map((item: string, index: number) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <span className="text-amber-500">•</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
                 <a
                   href="https://suanleme.cn"
                   target="_blank"
                   className="mt-10 w-full inline-block px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-500 rounded-md text-white text-center hover:translate-y-[-2px] transition-all duration-200 shadow-lg shadow-amber-900/20"
                 >
-                  了解如何共享算力
+                  {t('suanleme.advantages.button')}
                 </a>
               </div>
             </div>
             <div className="w-full md:w-3/5">
               <img
                 src="https://suanleme.cn/cover.png"
-                alt="算了么共享算力"
+                alt={t('suanleme.suanleme')}
                 className="w-full rounded-lg shadow-2xl border border-amber-200"
               />
             </div>
@@ -540,16 +534,13 @@ export default function HomeClient() {
       </section>
 
       {/* 共绩算力 */}
-      < section
-        id="gongji"
-        className="py-24 px-8 bg-gradient-to-br from-violet-50 via-primary-50 to-amber-50"
-      >
+      <section id="gongji" className="py-24 px-8 bg-gradient-to-br from-violet-50 via-primary-50 to-amber-50">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold mb-6 text-center tracking-tight text-gray-800">
-            共绩算力支持
+            {t('gongji.title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center leading-relaxed">
-            本项目由共绩算力提供强大的分布式计算支持，让模型推理更高效、更经济。
+            {t('gongji.description')}
           </p>
 
           <div className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-8 shadow-xl max-w-4xl mx-auto">
@@ -564,7 +555,7 @@ export default function HomeClient() {
                     className="relative z-10 text-center"
                   >
                     <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
-                      共绩
+                      {t('suanleme.gongji')}
                     </div>
                     <div className="text-center text-gray-500 text-sm">
                       gongjiyun.com
@@ -574,27 +565,17 @@ export default function HomeClient() {
               </div>
               <div className="w-full md:w-2/3">
                 <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
-                  共绩算力优势
+                  {t('gongji.advantages.title')}
                 </h3>
                 <ul className="space-y-4 text-gray-600">
-                  <li className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
-                      <span className="text-amber-500">•</span>
-                    </span>
-                    <span>分布式算力网络，整合闲置计算资源</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center">
-                      <span className="text-orange-500">•</span>
-                    </span>
-                    <span>高性价比，降低 AI 应用部署成本</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
-                      <span className="text-amber-500">•</span>
-                    </span>
-                    <span>绿色环保，提高资源利用效率</span>
-                  </li>
+                  {t.raw('gongji.advantages.items').map((item: string, index: number) => (
+                    <li key={index} className="flex items-center gap-3">
+                      <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
+                        <span className="text-amber-500">•</span>
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -605,19 +586,19 @@ export default function HomeClient() {
                   <div className="text-3xl font-bold text-amber-600 mb-2">
                     50+
                   </div>
-                  <div className="text-gray-600">提供本项目节点</div>
+                  <div className="text-gray-600">{t('gongji.stats.nodes')}</div>
                 </div>
                 <div className="bg-white/90 border border-orange-200 p-5 rounded-lg">
                   <div className="text-3xl font-bold text-orange-600 mb-2">
                     100K+
                   </div>
-                  <div className="text-gray-600">分布式算力设备</div>
+                  <div className="text-gray-600">{t('gongji.stats.devices')}</div>
                 </div>
                 <div className="bg-white/90 border border-amber-200 p-5 rounded-lg">
                   <div className="text-3xl font-bold text-amber-600 mb-2">
                     99.9%
                   </div>
-                  <div className="text-gray-600">服务可用性</div>
+                  <div className="text-gray-600">{t('gongji.stats.availability')}</div>
                 </div>
               </div>
             </div>
@@ -628,15 +609,15 @@ export default function HomeClient() {
                 target="_blank"
                 className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-md text-white text-center hover:translate-y-[-2px] transition-all duration-200 shadow-lg shadow-amber-900/20"
               >
-                部署你的服务
+                {t('gongji.button')}
               </a>
             </div>
           </div>
         </div>
-      </section >
+      </section>
 
       {/* Community Showcase Section */}
-      < section id="community-showcase" className="py-16 bg-white/95" >
+      <section id="community-showcase" className="py-16 bg-white/95">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">{t('community.title')}</h2>
@@ -670,7 +651,7 @@ export default function HomeClient() {
             ))}
           </div>
         </div>
-      </section >
-    </div >
+      </section>
+    </div>
   )
 } 
