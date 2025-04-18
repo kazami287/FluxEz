@@ -59,12 +59,17 @@
       },
       "preview": {
         "title": "Preview",
-        "download": "Download Image",
         "placeholder": "Enter your prompt and click generate to start creating",
+        "download": "Download Image",
         "generating": "Generating...",
         "completed": "Completed",
         "error": "Generation failed, please try again",
-        "hint": "Image generation may take some time, and occasional errors are normal. Please be patient."
+        "hint": "Image generation may take some time, and occasional errors are normal. Please be patient.",
+        "status": {
+          "generating": "images generating",
+          "success": "successful",
+          "failed": "failed"
+        }
       },
       "error": {
         "general": "Error generating image, please try again",

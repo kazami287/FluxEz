@@ -116,17 +116,15 @@ export default function HomeClient() {
         const duration = ((endTime - startTime) / 1000).toFixed(1);
         if (res.status !== 200) {
           setImageStatuses(prev => {
-            images[index] = '#'
-            setGeneratedImages([...images]);
             const newStatuses = [...prev];
-            newStatuses[index] = {
+            newStatuses.push( {
               status: 'error',
               message: t('generate.preview.error'),
               startTime,
               endTime: Date.now()
-            };
+            })
             return newStatuses;
-          });
+          })  
           return
         }
         const data = await res.json()
@@ -134,12 +132,12 @@ export default function HomeClient() {
         setGeneratedImages([...images]);
         setImageStatuses(prev => {
           const newStatuses = [...prev];
-          newStatuses[index] = {
+          newStatuses.push( {
             status: 'success',
             message: `${t('generate.preview.completed')} (${duration}s)`,
             startTime,
             endTime
-          };
+          })
           return newStatuses;
         });
       }).catch((err) => {
@@ -380,6 +378,22 @@ export default function HomeClient() {
               <div className="mt-4 text-center text-sm text-gray-500">
                 {t('generate.preview.hint')}
               </div>
+              {imageStatuses.length > 0 && (
+                <div className="mt-2 text-center text-sm">
+                  <span className="text-blue-600">
+                    {imageStatuses.filter(status => status.status === 'pending').length}
+                  </span>
+                  {t('generate.preview.status.generating')}
+                  <span className="text-green-600 mx-2">
+                    {imageStatuses.filter(status => status.status === 'success').length}
+                  </span>
+                  {t('generate.preview.status.success')}
+                  <span className="text-red-600 mx-2">
+                    {imageStatuses.filter(status => status.status === 'error').length}
+                  </span>
+                  {t('generate.preview.status.failed')}
+                </div>
+              )}
             </div>
           </div>
         </div>
