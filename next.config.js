@@ -1,6 +1,6 @@
 const withNextIntl = require('next-intl/plugin')('./src/i18n.ts');
 
-/** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -12,4 +12,5 @@ const nextConfig = {
   },
 }
 
-module.exports = withNextIntl(nextConfig); 
+// 最后应用 next-intl 插件
+module.exports = withNextIntl(nextConfig);

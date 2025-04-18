@@ -6,8 +6,11 @@ import { getTranslations } from 'next-intl/server'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/app/globals.css'
+import UmamiProvider from 'next-umami'
 
 const inter = Inter({ subsets: ['latin'] })
+const umamiWebsiteId = "3751fd4c-79ff-49d7-82d8-2c61447d7adc"
+const umamiSrc = "https://umami.suanleme.cn:3000/script.js"
 
 // 可以选择性地设置缓存时间
 async function getMessages(locale: string) {
@@ -19,8 +22,9 @@ async function getMessages(locale: string) {
   }
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations('site')
+export async function generateMetadata({params}: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const {locale} = await params;
+  const t = await getTranslations({locale, namespace: 'site'})
 
   return {
     title: t('title'),
@@ -40,6 +44,12 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
+      <head>
+      <UmamiProvider 
+          websiteId={umamiWebsiteId} // 替换为你的实际 ID
+          src={umamiSrc}
+        />
+      </head>
       <body className={inter.className}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <div className="min-h-screen flex flex-col">
