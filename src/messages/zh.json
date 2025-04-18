@@ -5,10 +5,14 @@
   },
   "home": {
     "hero": {
-      "titlePrefix": "10秒解锁你的",
-      "titleHighlight": "创意超能力！",
-      "subtitle": "使用先进的Flux.1-dev模型，免费将您的想象力转化为令人惊叹的艺术作品",
-      "subtitle2": "基于来自全国各地 50 台家用电脑的4090 显卡分布式算力",
+      "titlePrefix": "解锁你的",
+      "titleHighlight": "创意超能力，只需10秒！",
+      "subtitle": {
+        "prefix": "使用先进的 Flux.1-dev 模型，",
+        "highlight": "完全免费",
+        "suffix": "将你的想象力转化为惊艳的艺术作品"
+      },
+      "subtitle2": "由全国50台家用电脑的4090显卡分布式算力提供支持",
       "startButton": "立即开始",
       "faqButton": "常见问题",
       "imageCaption": "AI 生成的精美艺术"

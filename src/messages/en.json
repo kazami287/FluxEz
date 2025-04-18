@@ -5,10 +5,14 @@
   },
   "home": {
     "hero": {
-      "titlePrefix": "Unlock your creative",
-      "titleHighlight": "superpower in 10 seconds!",
-      "subtitle": "Transform your imagination into stunning artwork with our advanced Flux.1-dev model, completely free",
-      "subtitle2": "Powered by distributed computing from 50 home computers with RTX 4090 GPUs across the country",
+      "titlePrefix": "Unlock Your",
+      "titleHighlight": "Creative Superpower in Just 10 Seconds!",
+      "subtitle": {
+        "prefix": "Using the advanced Flux.1-dev model, ",
+        "highlight": "completely free",
+        "suffix": "to transform your imagination into stunning artwork"
+      },
+      "subtitle2": "Powered by distributed computing from 50 home computers with 4090 GPUs across the country",
       "startButton": "Get Started",
       "faqButton": "FAQ",
       "imageCaption": "AI Generated Art"

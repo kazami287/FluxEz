@@ -172,22 +172,26 @@ export default function HomeClient() {
                 FluxEz
               </span>
             </div>
-            <div className="max-w-4xl mx-auto text-center">
-              <h1 className="mb-6">
+            <div className="max-w-5xl mx-auto text-center">
+              <h1 className="mb-6 whitespace-nowrap">
                 <span className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-800">
-                  {t('hero.titlePrefix')}
+                  {t('hero.titlePrefix')}{' '}
                 </span>
                 <span className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent">
                   {t('hero.titleHighlight')}
                 </span>
               </h1>
+              <p className="text-xl text-gray-600 mb-8">
+                {t('hero.subtitle.prefix')}
+                <span className="text-2xl font-bold bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent px-1">
+                  {t('hero.subtitle.highlight')}
+                </span>
+                {t('hero.subtitle.suffix')}
+              </p>
+              <p className="text-xl text-gray-600 mb-8">
+                {t('hero.subtitle2')}
+              </p>
             </div>
-            <p className="text-xl text-gray-600 mb-8">
-              {t('hero.subtitle')}
-            </p>
-            <p className="text-xl text-gray-600 mb-8">
-              {t('hero.subtitle2')}
-            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => {
