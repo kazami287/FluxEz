@@ -377,6 +377,9 @@ export default function HomeClient() {
                   </div>
                 ))}
               </div>
+              <div className="mt-4 text-center text-sm text-gray-500">
+                {t('generate.preview.hint')}
+              </div>
             </div>
           </div>
         </div>

@@ -224,7 +224,7 @@ export default function GenerateForm({
                       onChange={(e) => setSteps(Number(e.target.value))}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                       min="15"
-                      max="30"
+                      max="45"
                       disabled={status === 'loading'}
                     />
                     <div className="absolute right-0 top-0 bottom-0 flex items-center">

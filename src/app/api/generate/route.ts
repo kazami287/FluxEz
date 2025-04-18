@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     if (width < 64 || width > 1024 || height < 64 || height > 1024) {
       return NextResponse.json({ error: 'Invalid image dimensions' }, { status: 400 })
     }
-    if (steps < 15 || steps > 30) {
+    if (steps < 15 || steps > 45) {
       return NextResponse.json({ error: 'Invalid steps value' }, { status: 400 })
     }
 
