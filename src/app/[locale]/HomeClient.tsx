@@ -98,7 +98,8 @@ export default function HomeClient() {
     setGeneratedImages([])
     setImageStatuses(Array(batch_size).fill({ status: 'pending', message: t('generate.preview.generating') }))
     const images: string[] = Array(batch_size).fill('')
-    const requests = Array(batch_size).fill(null).map((_, index) => {
+    let currentIndex = 0
+    const requests = Array(batch_size).fill(null).map(() => {
       const startTime = Date.now();
       return fetch('/api/generate', {
         method: 'POST',
@@ -128,11 +129,12 @@ export default function HomeClient() {
           return
         }
         const data = await res.json()
-        images[index] = data.imageUrl
+        images[currentIndex] = data.imageUrl
+        currentIndex++
         setGeneratedImages([...images]);
         setImageStatuses(prev => {
           const newStatuses = [...prev];
-          newStatuses.push( {
+          newStatuses[currentIndex- 1] = ( {
             status: 'success',
             message: `${t('generate.preview.completed')} (${duration}s)`,
             startTime,
