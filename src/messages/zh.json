@@ -63,7 +63,7 @@
         "download": "下载图片",
         "generating": "生成中...",
         "completed": "生成完成",
-        "error": "生成失败，请重试",
+        "error": "生成失败",
         "hint": "图片生成可能耗时较长，偶尔一张图片出错是正常情况，请耐心等待。",
         "status": {
           "generating": "张图片正在生成",

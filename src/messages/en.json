@@ -63,7 +63,7 @@
         "download": "Download Image",
         "generating": "Generating...",
         "completed": "Completed",
-        "error": "Generation failed, please try again",
+        "error": "Generation failed",
         "hint": "Image generation may take some time, and occasional errors are normal. Please be patient.",
         "status": {
           "generating": "images generating",

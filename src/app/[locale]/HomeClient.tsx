@@ -117,16 +117,16 @@ export default function HomeClient() {
         const endTime = Date.now();
         const duration = ((endTime - startTime) / 1000).toFixed(1);
         if (res.status !== 200) {
-          setImageStatuses(prev => {
-            const newStatuses = [...prev];
-            newStatuses.push( {
-              status: 'error',
-              message: t('generate.preview.error'),
-              startTime,
-              endTime: Date.now()
-            })
-            return newStatuses;
-          })  
+          // setImageStatuses(prev => {
+          //   const newStatuses = [...prev];
+          //   newStatuses.push( {
+          //     status: 'error',
+          //     message: t('generate.preview.error'),
+          //     startTime,
+          //     endTime: Date.now()
+          //   })
+          //   return newStatuses;
+          // })  
           return
         }
         const data = await res.json()
@@ -201,11 +201,11 @@ export default function HomeClient() {
               </span>
             </div>
             <div className="max-w-5xl mx-auto text-center">
-              <h1 className="mb-6 whitespace-nowrap">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-800">
+              <h1 className="mb-6">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-800 break-words">
                   {t('hero.titlePrefix')}{' '}
                 </span>
-                <span className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent">
+                <span className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent break-words">
                   {t('hero.titleHighlight')}
                 </span>
               </h1>
