@@ -327,6 +327,24 @@ export default function HomeClient() {
       <section id="generate-section" ref={generateSectionRef} className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">{t('generate.title')}</h2>
+          
+          {/* 维护提示 */}
+          <div className="mb-8 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-5 w-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <div className="ml-3">
+                <h3 className="text-lg font-medium text-red-800">服务维护中</h3>
+                <div className="mt-2 text-red-700">
+                  <p>我们的生图服务正在进行维护升级，预计几小时后恢复。给您带来的不便，敬请谅解。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-7 gap-8">
             <div className="md:col-span-3">
               <GenerateForm
@@ -622,88 +640,6 @@ export default function HomeClient() {
         </div>
       </section>
 
-      {/* 共绩算力 */}
-      <section id="gongji" className="py-24 px-8 bg-gradient-to-br from-violet-50 via-primary-50 to-amber-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-6 text-center tracking-tight text-gray-800">
-            {t('gongji.title')}
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-12 text-center leading-relaxed">
-            {t('gongji.description')}
-          </p>
-
-          <div className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-8 shadow-xl max-w-4xl mx-auto">
-            <div className="flex flex-col md:flex-row items-center gap-8 mb-8">
-              <div className="w-full md:w-1/3 flex justify-center">
-                <div className="w-40 h-40 relative flex items-center justify-center">
-                  <div className="absolute inset-0 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full animate-pulse"></div>
-                  <a
-                    href="https://gongjiyun.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative z-10 text-center"
-                  >
-                    <div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
-                      {t('suanleme.gongji')}
-                    </div>
-                    <div className="text-center text-gray-500 text-sm">
-                      gongjiyun.com
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div className="w-full md:w-2/3">
-                <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-600 to-orange-600">
-                  {t('gongji.advantages.title')}
-                </h3>
-                <ul className="space-y-4 text-gray-600">
-                  {t.raw('gongji.advantages.items').map((item: string, index: number) => (
-                    <li key={index} className="flex items-center gap-3">
-                      <span className="w-8 h-8 rounded-full bg-amber-500/10 flex items-center justify-center">
-                        <span className="text-amber-500">•</span>
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="pt-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-white/90 border border-amber-200 p-5 rounded-lg">
-                  <div className="text-3xl font-bold text-amber-600 mb-2">
-                    50+
-                  </div>
-                  <div className="text-gray-600">{t('gongji.stats.nodes')}</div>
-                </div>
-                <div className="bg-white/90 border border-orange-200 p-5 rounded-lg">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">
-                    100K+
-                  </div>
-                  <div className="text-gray-600">{t('gongji.stats.devices')}</div>
-                </div>
-                <div className="bg-white/90 border border-amber-200 p-5 rounded-lg">
-                  <div className="text-3xl font-bold text-amber-600 mb-2">
-                    99.9%
-                  </div>
-                  <div className="text-gray-600">{t('gongji.stats.availability')}</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 text-center">
-              <a
-                href="https://gongjiyun.com"
-                target="_blank"
-                className="inline-block px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-md text-white text-center hover:translate-y-[-2px] transition-all duration-200 shadow-lg shadow-amber-900/20"
-              >
-                {t('gongji.button')}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   )
 } 
