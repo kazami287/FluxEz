@@ -200,12 +200,12 @@ export default function HomeClient() {
                 FluxEz
               </span>
             </div>
-            <div className="max-w-5xl mx-auto text-center">
-              <h1 className="mb-6">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-800 break-words">
-                  {t('hero.titlePrefix')}{' '}
+            <div className="max-w-7xl mx-auto text-center">
+              <h1 className="mb-6 flex items-center justify-center gap-4">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-medium text-gray-800 break-words whitespace-nowrap">
+                  {t('hero.titlePrefix')}
                 </span>
-                <span className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent break-words">
+                <span className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent break-words whitespace-nowrap">
                   {t('hero.titleHighlight')}
                 </span>
               </h1>
