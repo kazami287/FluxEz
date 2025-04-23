@@ -45,11 +45,10 @@ npm run dev
 Access http://localhost:3000 after starting
 
 Backend Configuration
-The ComfyUI API endpoint is hardcoded in:
+The ComfyUI API endpoint is in .env file:
 
-typescript
-// src/app/generate/route.ts
-const COMFYUI_API_URL = "https://lastapi-light1-last.550w.run"  // Modify here if needed
+// set env varible
+COMFYUI_API_URL = "https://your-comfyui-api-url" 
 ```
 
 ## 🐋 Docker Image Building (Flux Model for ComfyUI)
