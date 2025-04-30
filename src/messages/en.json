@@ -32,11 +32,11 @@
         },
         "width": {
           "label": "Width",
-          "hint": "Image width (64-1024, multiples of 8)"
+          "hint": "Image width (64-1920, multiples of 8)"
         },
         "height": {
           "label": "Height",
-          "hint": "Image height (64-1024, multiples of 8)"
+          "hint": "Image height (64-1080, multiples of 8)"
         },
         "steps": {
           "label": "Steps",
@@ -73,7 +73,7 @@
       },
       "error": {
         "general": "Error generating image, please try again",
-        "invalidSize": "Image size must be between 64x64 and 1024x1024",
+        "invalidSize": "Image size must be between 64x64 and 1920x1080",
         "invalidSteps": "Steps must be between 1 and 100"
       }
     },

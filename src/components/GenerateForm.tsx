@@ -139,7 +139,7 @@ export default function GenerateForm({
                         onChange={(e) => setWidth(Number(e.target.value))}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         min="64"
-                        max="1024"
+                        max="1920"
                         step="8"
                         disabled={status === 'loading'}
                       />
@@ -156,9 +156,9 @@ export default function GenerateForm({
                         </button>
                         <button
                           type="button"
-                          onClick={() => setWidth(Math.min(1024, width + 8))}
+                          onClick={() => setWidth(Math.min(1920, width + 8))}
                           className="px-2 text-gray-600 hover:text-gray-900 disabled:opacity-50 h-full flex items-center justify-center"
-                          disabled={status === 'loading' || width >= 1024}
+                          disabled={status === 'loading' || width >= 1920}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -181,7 +181,7 @@ export default function GenerateForm({
                         onChange={(e) => setHeight(Number(e.target.value))}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                         min="64"
-                        max="1024"
+                        max="1080"
                         step="8"
                         disabled={status === 'loading'}
                       />
@@ -198,9 +198,9 @@ export default function GenerateForm({
                         </button>
                         <button
                           type="button"
-                          onClick={() => setHeight(Math.min(1024, height + 8))}
+                          onClick={() => setHeight(Math.min(1080, height + 8))}
                           className="px-2 text-gray-600 hover:text-gray-900 disabled:opacity-50 h-full flex items-center justify-center"
-                          disabled={status === 'loading' || height >= 1024}
+                          disabled={status === 'loading' || height >= 1080}
                         >
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
