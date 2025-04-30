@@ -7,7 +7,7 @@ export async function POST(request: Request) {
     const { prompt, width, height, steps, seed, batch_size } = body
 
     // 验证输入
-    if (width < 64 || width > 1024 || height < 64 || height > 1024) {
+    if (width < 64 || width > 1920 || height < 64 || height > 1080) {
       return NextResponse.json({ error: 'Invalid image dimensions' }, { status: 400 })
     }
     if (steps < 15 || steps > 45) {
