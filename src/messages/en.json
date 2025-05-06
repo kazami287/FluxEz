@@ -64,6 +64,7 @@
         "generating": "Generating...",
         "completed": "Completed",
         "error": "Generation failed",
+        "retrying": "Retrying",
         "hint": "Image generation may take some time, and occasional errors are normal. Please be patient.",
         "status": {
           "generating": "images generating",

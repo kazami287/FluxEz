@@ -99,55 +99,86 @@ export default function HomeClient() {
     setGeneratedImages([])
     setImageStatuses(Array(batch_size).fill({ status: 'pending', message: t('generate.preview.generating') }))
     const images: string[] = Array(batch_size).fill('')
-    let currentIndex = 0
-    const requests = Array(batch_size).fill(null).map(() => {
-      const startTime = Date.now();
-      return fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt,
-          width,
-          height,
-          steps,
-          seed: seed ? parseInt(seed.toString()) : Math.floor(Math.random() * 100000000),
-          batch_size,
-        }),
-      }).then(async (res) => {
-        const endTime = Date.now();
-        const duration = ((endTime - startTime) / 1000).toFixed(1);
-        if (res.status !== 200) {
-          // setImageStatuses(prev => {
-          //   const newStatuses = [...prev];
-          //   newStatuses.push( {
-          //     status: 'error',
-          //     message: t('generate.preview.error'),
-          //     startTime,
-          //     endTime: Date.now()
-          //   })
-          //   return newStatuses;
-          // })  
-          return
-        }
-        const data = await res.json()
-        images[currentIndex] = data.imageUrl
-        currentIndex++
-        setGeneratedImages([...images]);
-        setImageStatuses(prev => {
-          const newStatuses = [...prev];
-          newStatuses[currentIndex- 1] = ( {
-            status: 'success',
-            message: `${t('generate.preview.completed')} (${duration}s)`,
-            startTime,
-            endTime
-          })
-          return newStatuses;
-        });
-      }).catch((err) => {
-        console.error("生成图片失败:", err);
 
-      })
-    })
+    const requests = Array(batch_size).fill(null).map((_, index) => {
+      const startTime = Date.now();
+      let retryCount = 0;
+      const maxRetries = 2;
+
+      const makeRequest = async () => {
+        try {
+          const res = await fetch('/api/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              prompt,
+              width,
+              height,
+              steps,
+              seed: seed ? parseInt(seed.toString()) : Math.floor(Math.random() * 100000000),
+              batch_size,
+            }),
+          });
+
+          if (res.status !== 200) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+          }
+
+          const data = await res.json();
+          // Create a new promise to track image loading
+          const imageLoadPromise = new Promise<void>((resolve) => {
+            const img = new window.Image();
+            img.onload = () => {
+              const endTime = Date.now();
+              const duration = ((endTime - startTime) / 1000).toFixed(1);
+              images[index] = data.imageUrl;
+              setGeneratedImages([...images]);
+              setImageStatuses(prev => {
+                const newStatuses = [...prev];
+                newStatuses[index] = ({
+                  status: 'success',
+                  message: `${t('generate.preview.completed')} (${duration}s)`,
+                  startTime,
+                  endTime
+                });
+                return newStatuses;
+              });
+              resolve();
+            };
+            img.src = data.imageUrl;
+          });
+          await imageLoadPromise;
+        } catch (err) {
+          console.error(`生成图片失败 (尝试 ${retryCount + 1}/${maxRetries + 1}):`, err);
+          
+          if (retryCount < maxRetries) {
+            retryCount++;
+            setImageStatuses(prev => {
+              const newStatuses = [...prev];
+              newStatuses[index] = ({
+                status: 'pending',
+                message: `${t('generate.preview.retrying')} (${retryCount}/${maxRetries})`
+              });
+              return newStatuses;
+            });
+            // Wait for 1 second before retrying
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            return makeRequest();
+          } else {
+            setImageStatuses(prev => {
+              const newStatuses = [...prev];
+              newStatuses[index] = ({
+                status: 'error',
+                message: t('generate.preview.error')
+              });
+              return newStatuses;
+            });
+          }
+        }
+      };
+
+      return makeRequest();
+    });
     // 等待所有请求完成（可选，如果你想在全部完成后执行某些操作）
     await Promise.allSettled(requests);
     setIsGenerating(false)
