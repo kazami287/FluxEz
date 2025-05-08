@@ -1,117 +1,93 @@
-# FluxEz - Free AI Image Generation Tool
+# FluxEz -基于comfyui和Next.js的Flux AI图像生成平台
+基于Next.js和comfyui的Flux AI图像生成网站，后端图像生成采用[ComfyUI API](https://github.com/SaladTechnologies/comfyui-api) 驱动。
+![FluxEz界面](./public/images/Flux-demo.png)
+## ✨ 核心特色
+⚡ 10秒生成 - 4090显卡加速
 
-![FluxEz Interface](./public/images/Flux-demo.png)
+🎨 Flux.1-dev模型 - 卓越画质表现
 
-A Next.js-based website for Flux.1-dev model image generation, powered by [ComfyUI API](https://github.com/SaladTechnologies/comfyui-api) backend.
+🛠️ 高度可定制 - 支持多参数调节
 
-## ✨ Key Features
+🆓 完全免费 - 无限制无隐藏收费
 
-- ⚡ **10s Generation** - 4090 GPU accelerated
-- 🎨 **Flux.1-dev Model** - Superior image quality
-- 🛠️ **Customizable** - Multiple generation parameters
-- 🆓 **100% Free** - No limits or hidden costs
-- 🔌 **Zero Configuration** - No login required
+🔌 开箱即用 - 无需登录配置
 
-## 🚀 Quick Start
+## 🚀 快速开始
+[访问在线演示站](https://flux.comnergy.com/zh)
 
-1. Visit [FluxEz Live Demo](https://flux.comnergy.com/zh)
-2. Enter your prompt (English recommended)
-3. Click "Generate" and wait ~10s
+## 项目架构图
+![](./public/images/flux-structure.png)
 
-## 🖼️ Gallery
-
+## 🖼️ 图像生成效果展示
 ![](./public/images/demo-1.jpg)
 ![](./public/images/demo-2.jpg)
 
-## 🛠️ Development
+## 🛠️ 开发指南
 
-### Project Structure
-fluxez/  
-├── src/  
-│ ├── app/ # Next.js core  
-│ │ └── generate/  
-│ │ └── route.ts # API endpoint handler  
-├── public/ # Static assets  
-└── package.json # Dependencies  
-
-
-### Local Setup
-
+### 本地部署
 ```bash
 git clone https://github.com/your-repo/fluxez.git
 cd fluxez
 npm install
 npm run dev
-Access http://localhost:3000 after starting
-
-Backend Configuration
-The ComfyUI API endpoint is in .env file:
-
-// set env varible
-COMFYUI_API_URL = "https://your-comfyui-api-url" 
+# 启动后访问 http://localhost:3000
 ```
+后端配置
+ComfyUI API端点配置在.env文件中,本地测试可直接使用该文件，部署时需要重新指定。
+```
+COMFYUI_API_URL = "https://your-comfyui-api-url"
+```
+## 🐋 comfyui-api的Docker镜像构建（包含Flux模型的ComfyUI-api）
+将Flux模型打包为ComfyUI的Docker镜像，并使用[ComfyUI API](https://github.com/SaladTechnologies/comfyui-api)进行封装。
 
-## 🐋 Docker Image Building (Flux Model for ComfyUI)
+### 先决条件
+已安装Docker或docker desktop（windows）
 
-To package the Flux model as a ComfyUI Docker image:
+### 构建流程
+准备目录结构：
+```
+comfyUI/
+└── Dockerfile
+├── diffusion_models/
+│   └── flux1-schnell.safetensors
+├── text_encoders/
+│   ├── clip_l.safetensors
+│   └── t5xxl_fp8_e4m3fn.safetensors
+├── vae/
+│   └── ae.safetensors
+```
+使用Dockerfile：
 
-### Prerequisites
-- Docker installed
-
-### Build Process
-
-1. **Prepare the directory structure**:
-   ```bash
-   comfyUI/
-   └── Dockerfile
-   ├── diffusion_models/
-   │   └── flux1-schnell.safetensors
-   ├── text_encoders/
-   │   ├── clip_l.safetensors
-   │   └── t5xxl_fp8_e4m3fn.safetensors
-   ├── vae/
-   │   └── ae.safetensors
-Use this Dockerfile:
 ```dockerfile
-dockerfile
-# Use NVIDIA CUDA base image
-FROM ghcr.io/saladtechnologies/comfyui-api:comfy0.3.27-api1.8.2-torchnightly-cuda12.8-runtime
+FROM ghcr.io/saladtechnologies/comfyui-api:comfy0.3.29-api1.8.3-torch2.6.0-cuda12.4-runtime
 
-# Set environment variables
-ENV DEBIAN_FRONTEND=noninteractive \
-    COMFYUI_PORT=8188 \
+# 设置环境变量
+ENV COMFYUI_PORT=8188 \
     MODEL_DIR=/opt/ComfyUI/models \
     BASE=""
 
-# Create model directory structure
+# 4. 预创建模型目录结构
 RUN mkdir -p ${MODEL_DIR}/{loras,vaes,text_encoders,diffusion_models}
 
-# Copy model files
+# 5. 复制模型文件（
 COPY diffusion_models/*.safetensors ${MODEL_DIR}/diffusion_models/
 COPY vae/*.safetensors ${MODEL_DIR}/vae/
 COPY text_encoders/*.safetensors ${MODEL_DIR}/text_encoders/
 
-# Expose port
+# 6. 暴露端口
 EXPOSE ${COMFYUI_PORT}
 ```
-Build the image:
-```bash
-docker build -t flux-comfyui:latest .
-```
-Run the container:
 
-```bash
-docker run -d --gpus all -p 8188:8188 flux-comfyui:latest
-```
-Note: The base image is from comfyui-api
-## 🤝 Contributing
-We welcome:
+接下来可自行构建镜像。
+## 🤝 参与贡献
+欢迎：
 
-Feature requests (via Issues)
+- 通过Issues提交功能建议
 
-Code contributions (via PRs)
+- 通过PR提交代码改进
 
-📜 License
-MIT Licensed | © 2023 FluxEz Project
+## 📜 许可协议
+MIT许可证 | © 2023 FluxEz项目
 
-Live Demo ➡️ [FluxEz Website](https://flux.comnergy.com/zh)
+## 立即体验 
+➡️ [FluxEz官网](https://flux.comnergy.com/zh)
