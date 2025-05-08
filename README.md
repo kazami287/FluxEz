@@ -2,23 +2,26 @@
 基于Next.js和comfyui的Flux AI图像生成网站，后端图像生成采用[ComfyUI API](https://github.com/SaladTechnologies/comfyui-api) 驱动。
 ![FluxEz界面](./public/images/Flux-demo.png)
 ## ✨ 核心特色
-⚡ 10秒生成 - 4090显卡加速
+- 生成计时 - 页面展示生图等待时间
 
-🎨 Flux.1-dev模型 - 卓越画质表现
+- Flux.1-dev模型 - 卓越画质表现
 
-🛠️ 高度可定制 - 支持多参数调节
+- 高度可定制 - 支持多参数调节
 
-🆓 完全免费 - 无限制无隐藏收费
+- 自动重试 - 当一个生图请求失效时，自动向后端发送新的请求
 
-🔌 开箱即用 - 无需登录配置
+- 开箱即用 - 无需登录配置
 
 ## 🚀 快速开始
 [访问在线演示站](https://flux.comnergy.com/zh)
 
-## 项目架构图
+## ⚠️ 重要提示
+- 这是一个用于文生图网站的前端项目，但并不包含图像生成的能力哦！如果你想要运行这个项目，请记得自己部署一个文生图的后端服务基于 [ComfyUI API](https://github.com/SaladTechnologies/comfyui-api)。   
+- 如果你希望使用comfyui，但不想要使用Flux模型，需要自行修改项目中的多语言文件并调整comfyui的模型。
+## ⚙️项目架构图
 ![](./public/images/flux-structure.png)
 
-## 🖼️ 图像生成效果展示
+## 🖼️ Flux.1-dev模型图像生成效果展示
 ![](./public/images/demo-1.jpg)
 ![](./public/images/demo-2.jpg)
 
@@ -87,7 +90,7 @@ EXPOSE ${COMFYUI_PORT}
 - 通过PR提交代码改进
 
 ## 📜 许可协议
-MIT许可证 | © 2023 FluxEz项目
+[MIT许可证](./license.md) | © 2023 FluxEz项目
 
 ## 立即体验 
 ➡️ [FluxEz官网](https://flux.comnergy.com/zh)
