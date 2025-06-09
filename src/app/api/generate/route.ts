@@ -36,6 +36,6 @@ export async function POST(request: Request) {
 
 export const config = {
   api: {
-    timeout: 60_000, // 单位为毫秒，最多可设为 60_000（60秒），Vercel 上的限制
+    timeout: 60000, // 单位为毫秒，最多可设为 60_000（60秒），Vercel 上的限制
   },
 };
