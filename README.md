@@ -1,10 +1,10 @@
-# FluxEz -基于comfyui和Next.js的Flux AI图像生成平台
-基于Next.js和comfyui的Flux AI图像生成网站，后端图像生成采用[ComfyUI API](https://github.com/SaladTechnologies/comfyui-api) 驱动。
+# Dreamify -基于comfyui和Next.js的Flux AI图像生成网站应用
+一个基于Next.js和comfyui的AI图像生成网站应用，后端图像生成采用[ComfyUI API](https://github.com/SaladTechnologies/comfyui-api) 驱动。
 ![FluxEz界面](./public/images/Flux-demo.png)
 ## ✨ 核心特色
 - 生成计时 - 页面展示生图等待时间
 
-- Flux.1-dev模型 - 卓越画质表现
+- 多种模型 - 基于需求可任意替换
 
 - 高度可定制 - 支持多参数调节
 
@@ -13,15 +13,14 @@
 - 开箱即用 - 无需登录配置
 
 ## 🚀 快速开始
-[访问在线演示站](https://flux.comnergy.com/zh)
+[访问在线演示站](https://dreamify.slmnb.cn/zh)
 
 ## ⚠️ 重要提示
-- 这是一个用于文生图网站的前端项目，但并不包含图像生成的能力哦！如果你想要运行这个项目，请记得自己部署一个文生图的后端服务基于 [ComfyUI API](https://github.com/SaladTechnologies/comfyui-api)。   
-- 如果你希望使用comfyui，但不想要使用Flux模型，需要自行修改项目中的多语言文件并调整comfyui的模型。
+- 这是一个用于AI文生图网站的前端项目，但并不包含图像生成的能力哦！如果你想要运行这个项目，请记得自己部署一个文生图的后端服务基于 [ComfyUI API](https://github.com/SaladTechnologies/comfyui-api)。对于生产环境，我们推荐您使用[共绩算力](https://gongjiyun.com)作为项目的云算力平台，因其已提供了预制的ComfyUI-API镜像。但项目本身并不绑定任何云平台，您也可以考虑任何其他平台（例如阿里云、AutoDL等）
 ## ⚙️项目架构图
 ![](./public/images/flux-structure.png)
 
-## 🖼️ Flux.1-dev模型图像生成效果展示
+## 🖼️ 网站部分页面展示
 ![](./public/images/demo-1.jpg)
 ![](./public/images/demo-2.jpg)
 
@@ -35,8 +34,8 @@ npm install
 npm run dev
 # 启动后访问 http://localhost:3000
 ```
-后端配置
-ComfyUI API端点配置在.env文件中,本地测试可直接使用该文件，部署时需要重新指定。
+#### API配置
+ComfyUI API端点配置在`.env`文件中,你需要将一个可访问的ComfyUI API服务的URL进行配置，如下。
 ```
 COMFYUI_API_URL = "https://your-comfyui-api-url"
 ```
