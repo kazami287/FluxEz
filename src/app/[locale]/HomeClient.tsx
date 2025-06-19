@@ -192,7 +192,7 @@ export default function HomeClient() {
       {showDreamifyBanner && (
         <div className="fixed top-0 left-0 w-full z-50 flex items-center justify-center px-4 py-3 bg-gradient-to-r from-violet-500 via-primary-500 to-amber-400 text-white shadow-lg animate-fadeIn" style={{ minHeight: '48px' }}>
           <span className="flex-1 text-center text-sm sm:text-base font-medium">
-            🚀 新一代AI绘画平台 <a
+            🚀 新一代免费AI绘画平台 <a
               href="https://dreamify.slmnb.cn/zh"
               target="_blank"
               rel="noopener noreferrer"
